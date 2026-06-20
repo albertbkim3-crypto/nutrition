@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>빛나는 음식 · Radiant Food</title>
+  <meta name="description" content="Korean American elders' bilingual nutrition guide — healthy recipes, nearby restaurants, and senior-friendly nutrition tips." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <a href="index.html" class="site-logo" aria-label="빛나는 음식 홈">
+      <span data-en="✨ Radiant Food" data-ko="✨ 빛나는 음식">✨ 빛나는 음식</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="recipes.html"       class="nav-link"><span data-en="Recipes"     data-ko="레시피">레시피</span></a>
+      <a href="restaurants.html"   class="nav-link"><span data-en="Restaurants" data-ko="음식점">음식점</span></a>
+      <a href="nutrition-tips.html" class="nav-link"><span data-en="Nutrition"  data-ko="영양 정보">영양 정보</span></a>
+    </nav>
+
+    <div class="header-right">
+      <!-- Language toggle -->
+      <div class="lang-toggle" role="group" aria-label="언어 선택 / Language">
+        <button class="lang-btn" data-lang="ko" onclick="setLang('ko')" aria-label="한국어로 보기">한국어</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')" aria-label="View in English">English</button>
+      </div>
+      <!-- Read Aloud -->
+      <button class="read-btn" id="read-btn" onclick="toggleReadPage()" aria-live="polite">
+        <span data-en="🔊 Read Aloud" data-ko="🔊 읽어주기">🔊 읽어주기</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN — wrapped in id="read-content" for TTS
+  ═══════════════════════════════════════════ -->
+  <main id="read-content" aria-label="Main content">
+
+    <!-- ── HERO ── -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-emoji" aria-hidden="true">🍱</div>
+      <h1 id="hero-heading">
+        <span data-en="Radiant Food, a Radiant Life" data-ko="빛나는 음식, 빛나는 삶">빛나는 음식, 빛나는 삶</span>
+      </h1>
+      <p class="hero-sub">
+        <span data-en="Radiant Food provides nutritious recipes, restaurants, and tips through the simple tools of our page. Our goal is to help Korean American elders eat well and feel their best in every single moment of their lives." data-ko="빛나는 음식은 우리 페이지의 간단한 도구들을 통해 영양가 있는 레시피, 음식점, 그리고 건강 정보를 제공합니다. 우리의 목표는 한국계 미국인 어르신들이 삶의 모든 순간 건강하고 행복하게 지내실 수 있도록 돕는 것입니다.">빛나는 음식은 우리 페이지의 간단한 도구들을 통해 영양가 있는 레시피, 음식점, 그리고 건강 정보를 제공합니다. 우리의 목표는 한국계 미국인 어르신들이 삶의 모든 순간 건강하고 행복하게 지내실 수 있도록 돕는 것입니다.</span>
+      </p>
+
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── RECIPE OF THE WEEK ── -->
+    <section id="rotw-section" style="margin-bottom:36px;" aria-label="Recipe of the Week"></section>
+
+    <div class="divider"></div>
+
+    <!-- ── FEATURE CARDS ── -->
+    <section aria-labelledby="sections-heading">
+      <p class="section-label" aria-hidden="true">
+        <span data-en="EXPLORE" data-ko="바로 시작하기">바로 시작하기</span>
+      </p>
+      <h2 class="section-title" id="sections-heading">
+        <span data-en="What would you like today?" data-ko="오늘 무엇이 필요하신가요?">오늘 무엇이 필요하신가요?</span>
+      </h2>
+      <p class="section-sub">
+        <span data-en="Tap a card below to get started." data-ko="아래 카드를 눌러 시작하세요.">아래 카드를 눌러 시작하세요.</span>
+      </p>
+
+      <div class="cards-grid">
+
+        <!-- Recipes card -->
+        <a href="recipes.html" class="feature-card" aria-label="건강 레시피 보기">
+          <div class="card-icon" aria-hidden="true">🍱</div>
+          <div>
+            <div class="card-title">
+              <span data-en="Healthy Recipes" data-ko="건강 레시피">건강 레시피</span>
+            </div>
+            <div class="card-title-sub">
+              <span data-en="Korean &amp; American dishes" data-ko="한식 &amp; 미식">한식 &amp; 미식</span>
+            </div>
+          </div>
+          <p class="card-desc">
+            <span data-en="Browse easy, nutritious recipes for Korean and American meals. See calories, protein, and sodium at a glance." data-ko="간단하고 영양 가득한 한식과 미식 레시피를 살펴보세요. 칼로리, 단백질, 나트륨 정보도 확인할 수 있어요.">간단하고 영양 가득한 한식과 미식 레시피를 살펴보세요. 칼로리, 단백질, 나트륨 정보도 확인할 수 있어요.</span>
+          </p>
+          <div class="card-arrow" aria-hidden="true">→</div>
+        </a>
+
+        <!-- Restaurants card -->
+        <a href="restaurants.html" class="feature-card" aria-label="근처 음식점 찾기">
+          <div class="card-icon" aria-hidden="true">🗺️</div>
+          <div>
+            <div class="card-title">
+              <span data-en="Restaurants Near Me" data-ko="근처 음식점">근처 음식점</span>
+            </div>
+            <div class="card-title-sub">
+              <span data-en="Korean &amp; healthy options" data-ko="한식 &amp; 건강식">한식 &amp; 건강식</span>
+            </div>
+          </div>
+          <p class="card-desc">
+            <span data-en="Find Korean and healthy restaurants near you. Uses your location or a zip code you type in." data-ko="근처 한식당과 건강식 음식점을 찾아드려요. 위치 자동 감지 또는 우편번호 입력으로 이용할 수 있어요.">근처 한식당과 건강식 음식점을 찾아드려요. 위치 자동 감지 또는 우편번호 입력으로 이용할 수 있어요.</span>
+          </p>
+          <div class="card-arrow" aria-hidden="true">→</div>
+        </a>
+
+        <!-- Nutrition Tips card -->
+        <a href="nutrition-tips.html" class="feature-card" aria-label="영양 정보 보기">
+          <div class="card-icon" aria-hidden="true">💪</div>
+          <div>
+            <div class="card-title">
+              <span data-en="Nutrition Tips" data-ko="영양 정보 &amp; 건강 관리">영양 정보 &amp; 건강 관리</span>
+            </div>
+            <div class="card-title-sub">
+              <span data-en="Senior health guidance" data-ko="어르신 맞춤 안내">어르신 맞춤 안내</span>
+            </div>
+          </div>
+          <p class="card-desc">
+            <span data-en="Simple, actionable health tips tailored for seniors — sodium, blood pressure, hydration, portions, and more." data-ko="나트륨 관리, 혈압, 수분 섭취, 식사량 조절 등 어르신을 위한 쉽고 실용적인 건강 정보를 알아보세요.">나트륨 관리, 혈압, 수분 섭취, 식사량 조절 등 어르신을 위한 쉽고 실용적인 건강 정보를 알아보세요.</span>
+          </p>
+          <div class="card-arrow" aria-hidden="true">→</div>
+        </a>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── ABOUT / MISSION ── -->
+    <section aria-labelledby="mission-heading" style="max-width:680px;margin:0 auto;text-align:center;padding-bottom:20px;">
+      <p class="section-label">
+        <span data-en="OUR MISSION" data-ko="우리의 목표">우리의 목표</span>
+      </p>
+      <h2 class="section-title" id="mission-heading">
+        <span data-en="Why Radiant Food?" data-ko="왜 빛나는 음식인가요?">왜 빛나는 음식인가요?</span>
+      </h2>
+      <p style="font-size:1.1rem;color:var(--cream-dark);line-height:1.8;margin-bottom:18px;">
+        <span data-en="Many Korean American elders face unique health challenges — managing sodium from traditional dishes, finding Korean-friendly healthy restaurants, and navigating nutrition advice that doesn't reflect Korean food culture." data-ko="많은 한국계 미국인 어르신들은 한식의 나트륨 관리, 한국 음식 문화에 맞는 건강식당 찾기 등 독특한 건강 문제에 직면해 있습니다.">많은 한국계 미국인 어르신들은 한식의 나트륨 관리, 한국 음식 문화에 맞는 건강식당 찾기 등 독특한 건강 문제에 직면해 있습니다.</span>
+      </p>
+      <p style="font-size:1.1rem;color:var(--cream-dark);line-height:1.8;">
+        <span data-en="Radiant Food offers bilingual nutrition guidance that honors both Korean and American food traditions — with voice reading support, large text, and no login required." data-ko="빛나는 음식은 한식과 미식 전통을 모두 존중하는 이중 언어 영양 안내를 제공합니다. 음성 읽기 지원, 큰 글씨, 로그인 불필요.">빛나는 음식은 한식과 미식 전통을 모두 존중하는 이중 언어 영양 안내를 제공합니다. 음성 읽기 지원, 큰 글씨, 로그인 불필요.</span>
+      </p>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <p>
+      <span data-en="빛나는 음식 · Radiant Food" data-ko="빛나는 음식 · Radiant Food">빛나는 음식 · Radiant Food</span>
+    </p>
+    <p class="tiny">
+      <span data-en="Built for Korean American elders · No login required" data-ko="빛나는 음식 · 한국계 미국인 어르신을 위해 제작 · 로그인 불필요">빛나는 음식 · 한국계 미국인 어르신을 위해 제작 · 로그인 불필요</span>
+    </p>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/recipes-data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var rotw = getROTW();
+      document.getElementById('rotw-section').innerHTML =
+        buildFeaturedCard(rotw.featured, currentLang, 'recipes.html#' + rotw.featured.id) +
+        buildPastRow(rotw.past, currentLang, function (r) { return 'recipes.html#' + r.id; });
+    });
+  </script>
+</body>
+</html>

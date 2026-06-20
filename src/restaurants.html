@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>근처 음식점 · Radiant Food</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Search Near Me button ───────────────────────────── */
+    .search-box {
+      background: var(--olive-card);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      text-align: center;
+      box-shadow: 0 4px 20px var(--shadow);
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 32px;
+    }
+
+    .search-box h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 10px;
+    }
+
+    .search-box p {
+      font-size: 1.05rem;
+      color: var(--cream-dark);
+      margin-bottom: 22px;
+      line-height: 1.65;
+    }
+
+    .maps-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--cream);
+      color: var(--olive-dark);
+      border: none;
+      font-family: inherit;
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: 16px 36px;
+      border-radius: 50px;
+      cursor: pointer;
+      min-height: 56px;
+      transition: opacity 0.18s, transform 0.1s;
+      text-decoration: none;
+    }
+
+    .maps-btn:hover  { opacity: 0.87; }
+    .maps-btn:active { transform: scale(0.97); }
+
+    /* ── Legend box ─────────────────────────────────────── */
+    .legend-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: rgba(86, 130, 60, 0.30);
+      border: 2px solid rgba(200, 169, 74, 0.45);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 28px;
+    }
+
+    .legend-icon { font-size: 1.8rem; flex-shrink: 0; line-height: 1; }
+
+    .legend-text h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .legend-text p {
+      font-size: 0.98rem;
+      color: var(--cream-dark);
+      line-height: 1.6;
+    }
+
+    /* ── City picker grid ───────────────────────────────── */
+    .city-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .city-btn {
+      background: rgba(255,255,255,0.10);
+      border: 2px solid rgba(255,255,255,0.16);
+      color: var(--cream);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      min-height: 56px;
+      transition: all 0.18s;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .city-btn:hover  { background: rgba(255,255,255,0.18); }
+    .city-btn.active { background: var(--cream); color: var(--olive-dark); border-color: var(--cream); }
+
+    /* ── Restaurant card ────────────────────────────────── */
+    .resto-card {
+      background: var(--olive-card);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 14px var(--shadow);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .resto-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .resto-name h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.25;
+    }
+
+    .resto-name .sub-name {
+      font-size: 0.95rem;
+      color: var(--cream-dark);
+      margin-top: 2px;
+    }
+
+    .resto-address {
+      font-size: 0.95rem;
+      color: var(--cream-dark);
+      margin-bottom: 12px;
+    }
+
+    .resto-desc {
+      font-size: 1.05rem;
+      color: var(--cream-dark);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    /* Known-for chips */
+    .known-for-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .dish-chip {
+      background: rgba(0,0,0,0.20);
+      border-radius: 20px;
+      padding: 5px 13px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+
+    /* Wellness Pick callout */
+    .wellness-pick {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: rgba(86, 130, 60, 0.28);
+      border: 2px solid rgba(200, 169, 74, 0.40);
+      border-radius: var(--radius-sm);
+      padding: 13px 15px;
+      margin-top: 4px;
+    }
+
+    .wellness-pick .wp-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; }
+
+    .wellness-pick .wp-body strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 3px;
+    }
+
+    .wellness-pick .wp-body p {
+      font-size: 0.92rem;
+      color: var(--cream-dark);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* City section header */
+    .city-section-header {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 500px) {
+      .city-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" role="banner">
+    <a href="index.html" class="site-logo">
+      <span data-en="✨ Radiant Food" data-ko="✨ 빛나는 음식">✨ 빛나는 음식</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="recipes.html"        class="nav-link"><span data-en="Recipes"     data-ko="레시피">레시피</span></a>
+      <a href="restaurants.html"    class="nav-link active"><span data-en="Restaurants" data-ko="음식점">음식점</span></a>
+      <a href="nutrition-tips.html" class="nav-link"><span data-en="Nutrition"   data-ko="영양 정보">영양 정보</span></a>
+    </nav>
+
+    <div class="header-right">
+      <div class="lang-toggle" role="group" aria-label="언어 선택 / Language">
+        <button class="lang-btn" data-lang="ko" onclick="setLang('ko')">한국어</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
+      </div>
+      <button class="read-btn" id="read-btn" onclick="toggleReadPage()">
+        <span data-en="🔊 Read Aloud" data-ko="🔊 읽어주기">🔊 읽어주기</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="read-content">
+
+    <a href="index.html" class="back-link">
+      ← <span data-en="Back to Home" data-ko="홈으로 돌아가기">홈으로 돌아가기</span>
+    </a>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+      <h1><span data-en="🗺️ Restaurants" data-ko="🗺️ 음식점">🗺️ 음식점</span></h1>
+      <p>
+        <span data-en="Search Google Maps for Korean restaurants near you, or browse our hand-picked favorites across major cities." data-ko="근처 한식당을 구글 지도에서 검색하거나, 주요 도시별 엄선된 추천 음식점을 둘러보세요.">근처 한식당을 구글 지도에서 검색하거나, 주요 도시별 엄선된 추천 음식점을 둘러보세요.</span>
+      </p>
+    </div>
+
+    <!-- ── SEARCH NEAR ME ── -->
+    <div class="search-box">
+      <h2><span data-en="📍 Search Near Me" data-ko="📍 내 근처 검색">📍 내 근처 검색</span></h2>
+      <p>
+        <span data-en="Tap below to open Google Maps and find Korean restaurants near your current location." data-ko="아래 버튼을 눌러 구글 지도에서 현재 위치 근처 한식당을 찾아보세요.">아래 버튼을 눌러 구글 지도에서 현재 위치 근처 한식당을 찾아보세요.</span>
+      </p>
+      <button class="maps-btn" onclick="openGoogleMaps()" aria-label="Open Google Maps to find Korean restaurants">
+        <span data-en="🗺️ Find Korean Restaurants on Google Maps" data-ko="🗺️ 구글 지도에서 한식당 찾기">🗺️ 구글 지도에서 한식당 찾기</span>
+      </button>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── LEGEND ── -->
+    <div class="legend-box" role="note" aria-label="Wellness Pick explanation">
+      <div class="legend-icon" aria-hidden="true">🌱</div>
+      <div class="legend-text">
+        <h3><span data-en="🌱 Wellness Pick" data-ko="🌱 건강 추천 메뉴">🌱 건강 추천 메뉴</span></h3>
+        <p>
+          <span data-en="Restaurants marked with 🌱 Wellness Pick include a specific dish our team highlights for its health benefits — such as low sodium, high protein, or gut-healthy ingredients — especially suitable for seniors." data-ko="🌱 건강 추천 메뉴가 표시된 음식점에는 나트륨이 낮거나, 단백질이 풍부하거나, 장 건강에 좋은 성분 등 건강 효능이 뛰어나 어르신께 특히 적합한 특정 메뉴를 소개합니다.">🌱 건강 추천 메뉴가 표시된 음식점에는 나트륨이 낮거나, 단백질이 풍부하거나, 장 건강에 좋은 성분 등 건강 효능이 뛰어나 어르신께 특히 적합한 특정 메뉴를 소개합니다.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ── CITY PICKER ── -->
+    <p class="section-label">
+      <span data-en="BROWSE BY CITY" data-ko="도시별 보기">도시별 보기</span>
+    </p>
+
+    <div class="city-grid" role="group" aria-label="City selection">
+      <button class="city-btn active" data-city="la"  onclick="showCity('la', this)">
+        🌴<br><span data-en="Los Angeles" data-ko="로스앤젤레스">로스앤젤레스</span>
+      </button>
+      <button class="city-btn" data-city="oc" onclick="showCity('oc', this)">
+        🌊<br><span data-en="Orange County" data-ko="오렌지 카운티">오렌지 카운티</span>
+      </button>
+      <button class="city-btn" data-city="nyc" onclick="showCity('nyc', this)">
+        🗽<br><span data-en="New York City" data-ko="뉴욕">뉴욕</span>
+      </button>
+      <button class="city-btn" data-city="atl" onclick="showCity('atl', this)">
+        🍑<br><span data-en="Atlanta" data-ko="애틀랜타">애틀랜타</span>
+      </button>
+      <button class="city-btn" data-city="chi" onclick="showCity('chi', this)">
+        🌬️<br><span data-en="Chicago" data-ko="시카고">시카고</span>
+      </button>
+    </div>
+
+    <!-- ── RESTAURANT LISTS (one per city, shown/hidden) ── -->
+
+    <!-- LOS ANGELES -->
+    <div class="city-section" id="city-la">
+      <p class="city-section-header">
+        🌴 <span data-en="Los Angeles · Koreatown & Beyond" data-ko="로스앤젤레스 · 코리아타운 &amp; 주변">로스앤젤레스 · 코리아타운 &amp; 주변</span>
+      </p>
+
+      <!-- Sulga House of Bone Soup -->
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Sulga House of Bone Soup</h3>
+            <div class="sub-name">설가 뼈해장국</div>
+          </div>
+        </div>
+        <p class="resto-address">4451 Beverly Blvd, Los Angeles, CA 90004</p>
+        <p class="resto-desc">
+          <span data-en="Recommended for its tasty banchan and short rib soup. A comforting, no-frills spot beloved by the Korean American community for its rich, hearty bone broths." data-ko="맛있는 반찬과 갈비 국으로 추천합니다. 진하고 든든한 뼈 국물로 한인 커뮤니티에서 사랑받는 편안한 맛집입니다.">맛있는 반찬과 갈비 국으로 추천합니다. 진하고 든든한 뼈 국물로 한인 커뮤니티에서 사랑받는 편안한 맛집입니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">갈비탕 · Short Rib Soup</span>
+          <span class="dish-chip">꼬리곰탕 · Oxtail Soup</span>
+          <span class="dish-chip">반찬 · Banchan</span>
+        </div>
+        <div class="wellness-pick">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: Oxtail Soup (꼬리곰탕)" data-ko="건강 추천: 꼬리곰탕">건강 추천: 꼬리곰탕</span></strong>
+            <p><span data-en="Abundant in collagen which protects the gut lining, high in vitamins, and helps improve joint mobility — especially beneficial for seniors with joint pain." data-ko="장 점막을 보호하는 콜라겐이 풍부하고 비타민이 높으며 관절 움직임을 향상시킵니다 — 관절 통증이 있는 어르신께 특히 좋습니다.">장 점막을 보호하는 콜라겐이 풍부하고 비타민이 높으며 관절 움직임을 향상시킵니다 — 관절 통증이 있는 어르신께 특히 좋습니다.</span></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Jook Hyang -->
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Jook Hyang</h3>
+            <div class="sub-name">죽향</div>
+          </div>
+        </div>
+        <p class="resto-address">2666 W Olympic Blvd Ste #116, Los Angeles, CA 90006</p>
+        <p class="resto-desc">
+          <span data-en="Recommended for its samgyetang and seafood pancake. Known for traditional Korean porridges and restorative soups made with quality ingredients." data-ko="삼계탕과 해물전으로 추천합니다. 질 좋은 재료로 만든 전통 죽과 보양 국물 요리로 유명합니다.">삼계탕과 해물전으로 추천합니다. 질 좋은 재료로 만든 전통 죽과 보양 국물 요리로 유명합니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">삼계탕 · Samgyetang</span>
+          <span class="dish-chip">해물전 · Seafood Pancake</span>
+          <span class="dish-chip">인삼전복죽 · Ginseng Abalone Porridge</span>
+        </div>
+        <div class="wellness-pick">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: Samgyetang (삼계탕)" data-ko="건강 추천: 삼계탕">건강 추천: 삼계탕</span></strong>
+            <p><span data-en="Packed with ginseng which provides powerful medicinal properties and boosts the immune system. High in lean protein and naturally low in sodium." data-ko="강력한 약효 성분을 가진 인삼이 풍부하게 들어 있어 면역 체계를 강화합니다. 저지방 단백질이 높고 나트륨이 자연적으로 낮습니다.">강력한 약효 성분을 가진 인삼이 풍부하게 들어 있어 면역 체계를 강화합니다. 저지방 단백질이 높고 나트륨이 자연적으로 낮습니다.</span></p>
+          </div>
+        </div>
+        <div class="wellness-pick" style="margin-top:10px;">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: Ginseng &amp; Abalone Millet Rice Porridge" data-ko="건강 추천: 인삼전복잡곡죽">건강 추천: 인삼전복잡곡죽</span></strong>
+            <p><span data-en="Provides medicinal properties from ginseng and boosts the immune system. Lean protein from abalone and high in vitamin B12, which supports nerve and blood cell health." data-ko="인삼의 약효 성분으로 면역 체계를 강화합니다. 전복의 저지방 단백질과 신경 및 혈액 세포 건강을 돕는 비타민 B12가 풍부합니다.">인삼의 약효 성분으로 면역 체계를 강화합니다. 전복의 저지방 단백질과 신경 및 혈액 세포 건강을 돕는 비타민 B12가 풍부합니다.</span></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Kobawoo House -->
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Kobawoo House</h3>
+            <div class="sub-name">코바우 하우스</div>
+          </div>
+        </div>
+        <p class="resto-address">698 S Vermont Ave #109, Los Angeles, CA 90005</p>
+        <p class="resto-desc">
+          <span data-en="Recommended for its bossam and fresh banchan. A beloved Koreatown staple known for generous portions and classic Korean flavors done right." data-ko="보쌈과 신선한 반찬으로 추천합니다. 넉넉한 양과 제대로 된 한식 맛으로 사랑받는 코리아타운의 터줏대감입니다.">보쌈과 신선한 반찬으로 추천합니다. 넉넉한 양과 제대로 된 한식 맛으로 사랑받는 코리아타운의 터줏대감입니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">보쌈 · Bossam</span>
+          <span class="dish-chip">신선한 반찬 · Fresh Banchan</span>
+          <span class="dish-chip">된장찌개 · Doenjang Jjigae</span>
+        </div>
+        <div class="wellness-pick">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: Soybean Paste Stew (된장찌개)" data-ko="건강 추천: 된장찌개">건강 추천: 된장찌개</span></strong>
+            <p><span data-en="Gut-friendly and very easy to digest. Fermented doenjang is rich in natural probiotics that support digestion and immunity — a perfect dish for seniors." data-ko="장 건강에 좋고 소화가 매우 잘 됩니다. 발효 된장에는 소화와 면역력을 돕는 천연 프로바이오틱스가 풍부합니다 — 어르신께 완벽한 메뉴입니다.">장 건강에 좋고 소화가 매우 잘 됩니다. 발효 된장에는 소화와 면역력을 돕는 천연 프로바이오틱스가 풍부합니다 — 어르신께 완벽한 메뉴입니다.</span></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Borit Gogae -->
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Borit Gogae</h3>
+            <div class="sub-name">보릿고개</div>
+          </div>
+        </div>
+        <p class="resto-address">3464 W 8th St, Los Angeles, CA 90005</p>
+        <p class="resto-desc">
+          <span data-en="Recommended for its crab dishes and healthy banchan. A hidden gem in Koreatown offering fresh, wholesome Korean meals with an emphasis on quality ingredients." data-ko="게 요리와 건강한 반찬으로 추천합니다. 신선하고 건강한 한식을 질 좋은 재료로 제공하는 코리아타운의 숨겨진 보석 같은 곳입니다.">게 요리와 건강한 반찬으로 추천합니다. 신선하고 건강한 한식을 질 좋은 재료로 제공하는 코리아타운의 숨겨진 보석 같은 곳입니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">게 요리 · Crab</span>
+          <span class="dish-chip">건강 반찬 · Healthy Banchan</span>
+          <span class="dish-chip">비빔밥 · Bibimbap</span>
+        </div>
+        <div class="wellness-pick">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: Bibimbap (비빔밥)" data-ko="건강 추천: 비빔밥">건강 추천: 비빔밥</span></strong>
+            <p><span data-en="A perfect balance of carbs, protein, and fiber all in one bowl. Colorful vegetables provide vitamins and antioxidants, making it one of the most nutritionally complete Korean meals." data-ko="탄수화물, 단백질, 식이섬유의 완벽한 균형을 한 그릇에 담았습니다. 다채로운 채소가 비타민과 항산화 성분을 제공해 영양학적으로 가장 완벽한 한식 중 하나입니다.">탄수화물, 단백질, 식이섬유의 완벽한 균형을 한 그릇에 담았습니다. 다채로운 채소가 비타민과 항산화 성분을 제공해 영양학적으로 가장 완벽한 한식 중 하나입니다.</span></p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- ORANGE COUNTY -->
+    <div class="city-section" id="city-oc" style="display:none;">
+      <p class="city-section-header">
+        🌊 <span data-en="Orange County · Garden Grove &amp; Irvine" data-ko="오렌지 카운티 · 가든 그로브 &amp; 어바인">오렌지 카운티 · 가든 그로브 &amp; 어바인</span>
+      </p>
+
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Woomiok</h3>
+            <div class="sub-name">우미옥</div>
+          </div>
+        </div>
+        <p class="resto-address">9832 Garden Grove Blvd, Garden Grove, CA 92844</p>
+        <p class="resto-desc">
+          <span data-en="A beloved OC institution for cold noodles and Korean BBQ. The naengmyeon here is considered some of the best outside Korea — light, refreshing, and perfect for summer." data-ko="냉면과 한국식 BBQ로 유명한 오렌지 카운티의 사랑받는 맛집입니다. 이곳의 냉면은 한국 밖에서 최고 중 하나로 손꼽힙니다 — 담백하고 상쾌해 여름에 특히 좋습니다.">냉면과 한국식 BBQ로 유명한 오렌지 카운티의 사랑받는 맛집입니다. 이곳의 냉면은 한국 밖에서 최고 중 하나로 손꼽힙니다 — 담백하고 상쾌해 여름에 특히 좋습니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">물냉면 · Mul Naengmyeon</span>
+          <span class="dish-chip">불고기 · Bulgogi</span>
+          <span class="dish-chip">갈비 · Galbi</span>
+        </div>
+        <div class="wellness-pick">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: 물냉면 (Mul Naengmyeon)" data-ko="건강 추천: 물냉면">건강 추천: 물냉면</span></strong>
+            <p><span data-en="Cold buckwheat noodles in a light broth — only about 300 calories per serving, high in fiber, and easy to digest. A naturally low-fat meal great for seniors." data-ko="시원한 국물에 담긴 메밀 냉면 — 1인분 약 300칼로리로 식이섬유가 풍부하고 소화가 잘 됩니다. 지방이 낮아 어르신께 훌륭한 식사입니다.">시원한 국물에 담긴 메밀 냉면 — 1인분 약 300칼로리로 식이섬유가 풍부하고 소화가 잘 됩니다. 지방이 낮아 어르신께 훌륭한 식사입니다.</span></p>
+          </div>
+        </div>
+      </article>
+
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Miga Restaurant</h3>
+            <div class="sub-name">미가</div>
+          </div>
+        </div>
+        <p class="resto-address">3345 Michelson Dr #100, Irvine, CA 92612</p>
+        <p class="resto-desc">
+          <span data-en="Modern Korean cuisine in Irvine with a focus on fresh ingredients and lighter preparations. Offers grain bowls and vegetable-forward dishes alongside traditional favorites." data-ko="신선한 재료와 가벼운 조리법을 강조하는 어바인의 모던 한식 레스토랑입니다. 전통 메뉴 외에도 곡물 볼과 채소 위주 요리를 제공합니다.">신선한 재료와 가벼운 조리법을 강조하는 어바인의 모던 한식 레스토랑입니다. 전통 메뉴 외에도 곡물 볼과 채소 위주 요리를 제공합니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">잡채 · Japchae</span>
+          <span class="dish-chip">곡물 볼 · Grain Bowl</span>
+          <span class="dish-chip">파전 · Pajeon</span>
+        </div>
+        <div class="wellness-pick">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: 잡채 (Japchae)" data-ko="건강 추천: 잡채">건강 추천: 잡채</span></strong>
+            <p><span data-en="Glass noodles stir-fried with colorful vegetables — naturally gluten-free, low in fat, and a good source of fiber and vitamins from the mixed vegetables." data-ko="다채로운 채소를 넣어 볶은 당면 요리 — 자연적으로 글루텐 프리이며, 지방이 낮고 다양한 채소에서 식이섬유와 비타민을 섭취할 수 있습니다.">다채로운 채소를 넣어 볶은 당면 요리 — 자연적으로 글루텐 프리이며, 지방이 낮고 다양한 채소에서 식이섬유와 비타민을 섭취할 수 있습니다.</span></p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- NEW YORK CITY -->
+    <div class="city-section" id="city-nyc" style="display:none;">
+      <p class="city-section-header">
+        🗽 <span data-en="New York City · Koreatown (32nd St) &amp; Beyond" data-ko="뉴욕 · 코리아타운 (32번가) &amp; 주변">뉴욕 · 코리아타운 (32번가) &amp; 주변</span>
+      </p>
+
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Hangawi</h3>
+            <div class="sub-name">한가위</div>
+          </div>
+        </div>
+        <p class="resto-address">12 E 32nd St, New York, NY 10016</p>
+        <p class="resto-desc">
+          <span data-en="An award-winning vegetarian Korean restaurant inspired by Korean temple cuisine. Shoes-off, floor-seated dining. Entirely plant-based menu — no meat, no MSG, no garlic or onion." data-ko="한국 사찰 음식에서 영감을 받은 수상 경력의 채식 한식 레스토랑입니다. 신발을 벗고 좌식으로 식사합니다. 완전 식물성 메뉴 — 고기, MSG, 마늘, 양파 없음.">한국 사찰 음식에서 영감을 받은 수상 경력의 채식 한식 레스토랑입니다. 신발을 벗고 좌식으로 식사합니다. 완전 식물성 메뉴 — 고기, MSG, 마늘, 양파 없음.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">사찰 비빔밥 · Temple Bibimbap</span>
+          <span class="dish-chip">버섯전골 · Mushroom Hot Pot</span>
+          <span class="dish-chip">녹차 디저트 · Green Tea Desserts</span>
+        </div>
+        <div class="wellness-pick">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: Stone Bowl Bibimbap" data-ko="건강 추천: 돌솥 비빔밥">건강 추천: 돌솥 비빔밥</span></strong>
+            <p><span data-en="Entirely plant-based, high in fiber, vitamins, and antioxidants. No MSG, no added sodium beyond natural ingredients. One of the most balanced meals you can find." data-ko="완전 식물성으로 식이섬유, 비타민, 항산화 성분이 풍부합니다. MSG 없이 재료 본연의 맛만을 살렸습니다. 가장 균형 잡힌 식사 중 하나입니다.">완전 식물성으로 식이섬유, 비타민, 항산화 성분이 풍부합니다. MSG 없이 재료 본연의 맛만을 살렸습니다. 가장 균형 잡힌 식사 중 하나입니다.</span></p>
+          </div>
+        </div>
+      </article>
+
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Jongro BBQ NYC</h3>
+            <div class="sub-name">종로 바베큐</div>
+          </div>
+        </div>
+        <p class="resto-address">22 W 32nd St, New York, NY 10001</p>
+        <p class="resto-desc">
+          <span data-en="A lively all-you-can-eat Korean BBQ in the heart of NYC Koreatown. Known for quality meats and excellent banchan. A great spot for family gatherings." data-ko="뉴욕 코리아타운 중심에 위치한 활기찬 무한 리필 한국식 바베큐 식당입니다. 질 좋은 고기와 훌륭한 반찬으로 유명합니다. 가족 모임에 좋은 장소입니다.">뉴욕 코리아타운 중심에 위치한 활기찬 무한 리필 한국식 바베큐 식당입니다. 질 좋은 고기와 훌륭한 반찬으로 유명합니다. 가족 모임에 좋은 장소입니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">삼겹살 · Samgyeopsal</span>
+          <span class="dish-chip">갈비 · Galbi</span>
+          <span class="dish-chip">반찬 · Banchan</span>
+        </div>
+      </article>
+
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Haenyeo</h3>
+            <div class="sub-name">해녀</div>
+          </div>
+        </div>
+        <p class="resto-address">239 5th Ave, Brooklyn, NY 11215</p>
+        <p class="resto-desc">
+          <span data-en="A celebrated modern Korean restaurant in Brooklyn named after Jeju Island's female divers. Focuses on seafood and seasonal vegetables with refined Korean flavors." data-ko="제주 해녀에서 이름을 딴 브루클린의 유명 모던 한식 레스토랑입니다. 세련된 한식 맛으로 해산물과 제철 채소를 중심으로 한 메뉴를 제공합니다.">제주 해녀에서 이름을 딴 브루클린의 유명 모던 한식 레스토랑입니다. 세련된 한식 맛으로 해산물과 제철 채소를 중심으로 한 메뉴를 제공합니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">해물 · Seafood</span>
+          <span class="dish-chip">된장찌개 · Doenjang Jjigae</span>
+          <span class="dish-chip">제철 채소 · Seasonal Vegetables</span>
+        </div>
+        <div class="wellness-pick">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: 된장찌개 (Doenjang Jjigae)" data-ko="건강 추천: 된장찌개">건강 추천: 된장찌개</span></strong>
+            <p><span data-en="Fermented soybean paste is rich in natural probiotics that support gut health and digestion. Ask for a lighter version with more tofu and vegetables." data-ko="발효 된장에는 장 건강과 소화를 돕는 천연 프로바이오틱스가 풍부합니다. 두부와 채소를 더 넣은 가벼운 버전으로 요청해 보세요.">발효 된장에는 장 건강과 소화를 돕는 천연 프로바이오틱스가 풍부합니다. 두부와 채소를 더 넣은 가벼운 버전으로 요청해 보세요.</span></p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- ATLANTA -->
+    <div class="city-section" id="city-atl" style="display:none;">
+      <p class="city-section-header">
+        🍑 <span data-en="Atlanta · Doraville, Duluth &amp; Buford Hwy" data-ko="애틀랜타 · 도러빌, 둘루스 &amp; 버포드 하이웨이">애틀랜타 · 도러빌, 둘루스 &amp; 버포드 하이웨이</span>
+      </p>
+
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Hae Woon Dae</h3>
+            <div class="sub-name">해운대</div>
+          </div>
+        </div>
+        <p class="resto-address">5805 Buford Hwy NE, Atlanta, GA 30340</p>
+        <p class="resto-desc">
+          <span data-en="A long-standing Atlanta favorite on Buford Highway, beloved for classic Korean BBQ and hearty soups. Frequented by Korean American elders in the community for decades." data-ko="버포드 하이웨이의 오래된 애틀랜타 명소로 정통 한국식 바베큐와 든든한 국물 요리로 사랑받고 있습니다. 수십 년 동안 한인 어르신들이 즐겨 찾는 곳입니다.">버포드 하이웨이의 오래된 애틀랜타 명소로 정통 한국식 바베큐와 든든한 국물 요리로 사랑받고 있습니다. 수십 년 동안 한인 어르신들이 즐겨 찾는 곳입니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">갈비 · Galbi</span>
+          <span class="dish-chip">삼계탕 · Samgyetang</span>
+          <span class="dish-chip">냉면 · Naengmyeon</span>
+        </div>
+        <div class="wellness-pick">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: 삼계탕 (Samgyetang)" data-ko="건강 추천: 삼계탕">건강 추천: 삼계탕</span></strong>
+            <p><span data-en="Whole young chicken stuffed with ginseng, rice, and garlic — extremely high in protein and naturally low in sodium. A traditional Korean energy-restoring dish, ideal for seniors." data-ko="인삼, 찹쌀, 마늘을 넣고 끓인 영계 — 단백질이 매우 풍부하고 나트륨이 자연적으로 낮습니다. 어르신의 기력 회복에 이상적인 전통 한식 보양 요리입니다.">인삼, 찹쌀, 마늘을 넣고 끓인 영계 — 단백질이 매우 풍부하고 나트륨이 자연적으로 낮습니다. 어르신의 기력 회복에 이상적인 전통 한식 보양 요리입니다.</span></p>
+          </div>
+        </div>
+      </article>
+
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Masterpiece Korean Restaurant</h3>
+            <div class="sub-name">명작</div>
+          </div>
+        </div>
+        <p class="resto-address">3553 Gwinnett Place Dr, Duluth, GA 30096</p>
+        <p class="resto-desc">
+          <span data-en="A Duluth gem offering traditional Korean home cooking with generous portions and attentive service. Known for their soft tofu stew and wide variety of banchan." data-ko="넉넉한 양과 친절한 서비스로 전통 한식 가정식을 제공하는 둘루스의 보석 같은 곳입니다. 순두부찌개와 다양한 반찬으로 유명합니다.">넉넉한 양과 친절한 서비스로 전통 한식 가정식을 제공하는 둘루스의 보석 같은 곳입니다. 순두부찌개와 다양한 반찬으로 유명합니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">해물순두부 · Haemul Sundubu</span>
+          <span class="dish-chip">비빔밥 · Bibimbap</span>
+          <span class="dish-chip">잡채 · Japchae</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- CHICAGO -->
+    <div class="city-section" id="city-chi" style="display:none;">
+      <p class="city-section-header">
+        🌬️ <span data-en="Chicago · Albany Park &amp; Koreatown" data-ko="시카고 · 올버니 파크 &amp; 코리아타운">시카고 · 올버니 파크 &amp; 코리아타운</span>
+      </p>
+
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>Miss Korea BBQ</h3>
+            <div class="sub-name">미스 코리아 바베큐</div>
+          </div>
+        </div>
+        <p class="resto-address">3301 N Pulaski Rd, Chicago, IL 60641</p>
+        <p class="resto-desc">
+          <span data-en="Chicago's go-to spot for Korean BBQ in Albany Park, the heart of Chicago's Korean community. Table grills, warm banchan, and a welcoming family atmosphere." data-ko="시카고 한인 커뮤니티의 중심인 올버니 파크에서 한국식 바베큐를 즐길 수 있는 곳입니다. 테이블 그릴, 따뜻한 반찬, 그리고 가족적인 분위기가 특징입니다.">시카고 한인 커뮤니티의 중심인 올버니 파크에서 한국식 바베큐를 즐길 수 있는 곳입니다. 테이블 그릴, 따뜻한 반찬, 그리고 가족적인 분위기가 특징입니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">삼겹살 · Samgyeopsal</span>
+          <span class="dish-chip">된장찌개 · Doenjang Jjigae</span>
+          <span class="dish-chip">파전 · Pajeon</span>
+        </div>
+        <div class="wellness-pick">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: 된장찌개 (Doenjang Jjigae)" data-ko="건강 추천: 된장찌개">건강 추천: 된장찌개</span></strong>
+            <p><span data-en="Ask for the doenjang jjigae with extra tofu and vegetables. The fermented paste provides natural probiotics for gut health — a comforting, functional meal for seniors." data-ko="두부와 채소를 더 넣은 된장찌개를 요청해 보세요. 발효 된장의 천연 프로바이오틱스가 장 건강을 돕습니다 — 어르신께 따뜻하고 건강한 한 끼입니다.">두부와 채소를 더 넣은 된장찌개를 요청해 보세요. 발효 된장의 천연 프로바이오틱스가 장 건강을 돕습니다 — 어르신께 따뜻하고 건강한 한 끼입니다.</span></p>
+          </div>
+        </div>
+      </article>
+
+      <article class="resto-card">
+        <div class="resto-card-header">
+          <div class="resto-name">
+            <h3>San Soo Gab San</h3>
+            <div class="sub-name">산수갑산</div>
+          </div>
+        </div>
+        <p class="resto-address">5247 N Western Ave, Chicago, IL 60625</p>
+        <p class="resto-desc">
+          <span data-en="A beloved 24-hour Korean BBQ institution in Chicago, open since 1995. Famous for their marinated meats and abundant banchan spread. A true community gathering place." data-ko="1995년부터 운영된 시카고의 사랑받는 24시간 한국식 바베큐 식당입니다. 양념 고기와 풍성한 반찬 상차림으로 유명합니다. 진정한 커뮤니티 모임 장소입니다.">1995년부터 운영된 시카고의 사랑받는 24시간 한국식 바베큐 식당입니다. 양념 고기와 풍성한 반찬 상차림으로 유명합니다. 진정한 커뮤니티 모임 장소입니다.</span>
+        </p>
+        <div class="known-for-row">
+          <span class="dish-chip">불고기 · Bulgogi</span>
+          <span class="dish-chip">갈비 · Galbi</span>
+          <span class="dish-chip">김치찌개 · Kimchi Jjigae</span>
+        </div>
+        <div class="wellness-pick">
+          <div class="wp-icon" aria-hidden="true">🌱</div>
+          <div class="wp-body">
+            <strong><span data-en="Wellness Pick: 불고기 (Bulgogi)" data-ko="건강 추천: 불고기">건강 추천: 불고기</span></strong>
+            <p><span data-en="Thinly sliced marinated beef — leaner than galbi, high in protein, and easier to chew for seniors. Pair with rice and vegetable banchan for a balanced meal." data-ko="얇게 썬 양념 쇠고기 — 갈비보다 기름기가 적고 단백질이 풍부하며 어르신이 씹기 더 편합니다. 밥과 채소 반찬을 곁들이면 균형 잡힌 한 끼가 됩니다.">얇게 썬 양념 쇠고기 — 갈비보다 기름기가 적고 단백질이 풍부하며 어르신이 씹기 더 편합니다. 밥과 채소 반찬을 곁들이면 균형 잡힌 한 끼가 됩니다.</span></p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p><span data-en="빛나는 음식 · Radiant Food" data-ko="빛나는 음식 · Radiant Food">빛나는 음식 · Radiant Food</span></p>
+    <p class="tiny"><span data-en="Radiant Food · Built for Korean American elders · No login required" data-ko="빛나는 음식 · 한국계 미국인 어르신을 위해 제작 · 로그인 불필요">빛나는 음식 · 한국계 미국인 어르신을 위해 제작 · 로그인 불필요</span></p>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    // ── Google Maps search ──────────────────────────────────
+    function openGoogleMaps() {
+      const baseQuery = 'Korean+restaurant';
+
+      if (!navigator.geolocation) {
+        window.open(`https://www.google.com/maps/search/${baseQuery}/`, '_blank');
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          const { latitude: lat, longitude: lng } = pos.coords;
+          window.open(
+            `https://www.google.com/maps/search/${baseQuery}/@${lat},${lng},14z`,
+            '_blank'
+          );
+        },
+        () => {
+          // Permission denied or unavailable — open generic search
+          window.open(`https://www.google.com/maps/search/${baseQuery}/`, '_blank');
+        },
+        { timeout: 5000 }
+      );
+    }
+
+    // ── City picker ─────────────────────────────────────────
+    function showCity(city, clickedBtn) {
+      document.querySelectorAll('.city-section').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.city-btn').forEach(b => b.classList.remove('active'));
+
+      document.getElementById('city-' + city).style.display = '';
+      clickedBtn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

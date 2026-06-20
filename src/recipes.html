@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>건강 레시피 · Radiant Food</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       HEADER (identical across all pages)
+  ═══════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <a href="index.html" class="site-logo">
+      <span data-en="✨ Radiant Food" data-ko="✨ 빛나는 음식">✨ 빛나는 음식</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="recipes.html"        class="nav-link active"><span data-en="Recipes"     data-ko="레시피">레시피</span></a>
+      <a href="restaurants.html"    class="nav-link"><span data-en="Restaurants" data-ko="음식점">음식점</span></a>
+      <a href="nutrition-tips.html" class="nav-link"><span data-en="Nutrition"   data-ko="영양 정보">영양 정보</span></a>
+    </nav>
+
+    <div class="header-right">
+      <div class="lang-toggle" role="group" aria-label="언어 선택 / Language">
+        <button class="lang-btn" data-lang="ko" onclick="setLang('ko')">한국어</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
+      </div>
+      <button class="read-btn" id="read-btn" onclick="toggleReadPage()">
+        <span data-en="🔊 Read Aloud" data-ko="🔊 읽어주기">🔊 읽어주기</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN
+  ═══════════════════════════════════════════ -->
+  <main id="read-content">
+
+    <a href="index.html" class="back-link" aria-label="Go back home">
+      ← <span data-en="Back to Home" data-ko="홈으로 돌아가기">홈으로 돌아가기</span>
+    </a>
+
+    <!-- ── PAGE HERO ── -->
+    <div class="page-hero">
+      <h1>
+        <span data-en="🍱 Healthy Recipes" data-ko="🍱 건강 레시피">🍱 건강 레시피</span>
+      </h1>
+      <p>
+        <span data-en="Simple, nutritious recipes for Korean and American meals. Tap any recipe to see ingredients and cooking tips." data-ko="간단하고 영양 가득한 한식과 미식 레시피를 소개합니다. 레시피를 눌러 재료와 조리 팁을 확인하세요.">간단하고 영양 가득한 한식과 미식 레시피를 소개합니다. 레시피를 눌러 재료와 조리 팁을 확인하세요.</span>
+      </p>
+    </div>
+
+    <!-- ── RECIPE OF THE WEEK ── -->
+    <section id="rotw-section" style="margin-bottom:28px;" aria-label="Recipe of the Week"></section>
+
+    <!-- ── FILTER TABS ── -->
+    <div class="filter-row" role="group" aria-label="Recipe category filter">
+      <button class="filter-tab active" onclick="filterRecipes('all', this)"   aria-pressed="true">
+        <span data-en="All Recipes" data-ko="전체">전체</span>
+      </button>
+      <button class="filter-tab" onclick="filterRecipes('korean', this)" aria-pressed="false">
+        <span data-en="🇰🇷 Korean" data-ko="🇰🇷 한식">🇰🇷 한식</span>
+      </button>
+      <button class="filter-tab" onclick="filterRecipes('american', this)" aria-pressed="false">
+        <span data-en="🇺🇸 American" data-ko="🇺🇸 미식">🇺🇸 미식</span>
+      </button>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         RECIPE LIST
+         Each card carries data-category="korean" or "american"
+    ══════════════════════════════════════ -->
+    <div id="recipe-list">
+
+      <!-- ─── RECIPE 1: 미역국 ─── -->
+      <article id="r1" class="recipe-card" data-category="korean" aria-labelledby="r1-name" data-query="seaweed soup">
+        <div class="recipe-card-header">
+          <div class="recipe-names">
+            <h3 id="r1-name">
+              <span data-en="Miyeokguk (Seaweed Soup)" data-ko="미역국">미역국</span>
+            </h3>
+            <div class="sub-name">
+              <span data-en="미역국" data-ko="Miyeokguk · Seaweed Soup">Miyeokguk · Seaweed Soup</span>
+            </div>
+          </div>
+          <span class="recipe-category-badge">
+            <span data-en="Korean" data-ko="한식">한식</span>
+          </span>
+        </div>
+
+        <p class="recipe-desc">
+          <span data-en="A light, mineral-rich soup made with dried seaweed. Traditionally eaten on birthdays and after childbirth — high in calcium and iodine, very low in calories." data-ko="마른 미역으로 만든 가볍고 미네랄이 풍부한 국입니다. 생일과 산후에 먹는 전통 음식으로, 칼슘과 요오드가 풍부하고 칼로리가 매우 낮아요.">마른 미역으로 만든 가볍고 미네랄이 풍부한 국입니다. 생일과 산후에 먹는 전통 음식으로, 칼슘과 요오드가 풍부하고 칼로리가 매우 낮아요.</span>
+        </p>
+
+        <div class="nutrition-row" aria-label="Nutrition per serving">
+          <div class="nutr-pill"><span class="label"><span data-en="Cal" data-ko="칼로리">칼로리</span></span> 45 kcal</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Protein" data-ko="단백질">단백질</span></span> 3 g</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Sodium" data-ko="나트륨">나트륨</span></span> 260 mg</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Calcium" data-ko="칼슘">칼슘</span></span> 110 mg</div>
+        </div>
+
+        <button class="toggle-details-btn" onclick="toggleDetails('r1-details', this)" aria-expanded="false">
+          <span data-en="▸ Show Ingredients &amp; Tips" data-ko="▸ 재료 &amp; 조리 팁 보기">▸ 재료 &amp; 조리 팁 보기</span>
+        </button>
+
+        <div class="recipe-details" id="r1-details">
+          <h4><span data-en="Ingredients (2 servings)" data-ko="재료 (2인분)">재료 (2인분)</span></h4>
+          <ul>
+            <li><span data-en="20 g dried seaweed (miyeok), soaked 30 min" data-ko="마른 미역 20g (30분 불리기)">마른 미역 20g (30분 불리기)</span></li>
+            <li><span data-en="100 g beef (or firm tofu for vegetarian)" data-ko="쇠고기 100g (채식은 두부로 대체)">쇠고기 100g (채식은 두부로 대체)</span></li>
+            <li><span data-en="1 tsp sesame oil" data-ko="참기름 1 작은술">참기름 1 작은술</span></li>
+            <li><span data-en="1 tbsp low-sodium soy sauce" data-ko="저염 간장 1 큰술">저염 간장 1 큰술</span></li>
+            <li><span data-en="2 cloves garlic, minced" data-ko="마늘 2쪽 (다진 것)">마늘 2쪽 (다진 것)</span></li>
+            <li><span data-en="4 cups water" data-ko="물 4컵">물 4컵</span></li>
+          </ul>
+
+          <h4><span data-en="Cooking Tips" data-ko="조리 팁">조리 팁</span></h4>
+          <p><span data-en="Sauté the beef with sesame oil first, then add soaked seaweed and stir for 2 min before adding water. Simmer 15 minutes over medium heat." data-ko="참기름에 쇠고기를 먼저 볶은 후, 불린 미역을 넣고 2분 더 볶다가 물을 부어주세요. 중불에서 15분 끓이면 됩니다.">참기름에 쇠고기를 먼저 볶은 후, 불린 미역을 넣고 2분 더 볶다가 물을 부어주세요. 중불에서 15분 끓이면 됩니다.</span></p>
+          <div class="health-note">
+            💚 <span data-en="Senior tip: Very low sodium compared to other Korean soups. Rich in calcium — great for bone health." data-ko="건강 팁: 다른 국에 비해 나트륨이 적습니다. 칼슘이 풍부해 뼈 건강에 좋습니다.">건강 팁: 다른 국에 비해 나트륨이 적습니다. 칼슘이 풍부해 뼈 건강에 좋습니다.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ─── RECIPE 2: 비빔밥 ─── -->
+      <article id="r2" class="recipe-card" data-category="korean" aria-labelledby="r2-name" data-query="bibimbap mixed rice bowl">
+        <div class="recipe-card-header">
+          <div class="recipe-names">
+            <h3 id="r2-name">
+              <span data-en="Bibimbap (Mixed Rice Bowl)" data-ko="비빔밥">비빔밥</span>
+            </h3>
+            <div class="sub-name">
+              <span data-en="비빔밥" data-ko="Bibimbap · Mixed Rice Bowl">Bibimbap · Mixed Rice Bowl</span>
+            </div>
+          </div>
+          <span class="recipe-category-badge">
+            <span data-en="Korean" data-ko="한식">한식</span>
+          </span>
+        </div>
+
+        <p class="recipe-desc">
+          <span data-en="A colorful bowl of rice topped with seasoned vegetables, a soft egg, and a touch of gochujang. High in fiber, vitamins, and protein." data-ko="밥 위에 나물, 달걀, 고추장을 얹은 영양 만점 한그릇 요리입니다. 식이섬유, 비타민, 단백질이 풍부해요.">밥 위에 나물, 달걀, 고추장을 얹은 영양 만점 한그릇 요리입니다. 식이섬유, 비타민, 단백질이 풍부해요.</span>
+        </p>
+
+        <div class="nutrition-row">
+          <div class="nutr-pill"><span class="label"><span data-en="Cal" data-ko="칼로리">칼로리</span></span> 450 kcal</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Protein" data-ko="단백질">단백질</span></span> 18 g</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Sodium" data-ko="나트륨">나트륨</span></span> 380 mg</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Fiber" data-ko="식이섬유">식이섬유</span></span> 6 g</div>
+        </div>
+
+        <button class="toggle-details-btn" onclick="toggleDetails('r2-details', this)" aria-expanded="false">
+          <span data-en="▸ Show Ingredients &amp; Tips" data-ko="▸ 재료 &amp; 조리 팁 보기">▸ 재료 &amp; 조리 팁 보기</span>
+        </button>
+
+        <div class="recipe-details" id="r2-details">
+          <h4><span data-en="Ingredients (2 servings)" data-ko="재료 (2인분)">재료 (2인분)</span></h4>
+          <ul>
+            <li><span data-en="2 cups cooked short-grain rice" data-ko="밥 2공기">밥 2공기</span></li>
+            <li><span data-en="100 g spinach, blanched" data-ko="시금치 100g (살짝 데친 것)">시금치 100g (살짝 데친 것)</span></li>
+            <li><span data-en="1 medium carrot, julienned &amp; sautéed" data-ko="당근 1개 (채 썰어 볶은 것)">당근 1개 (채 썰어 볶은 것)</span></li>
+            <li><span data-en="100 g bean sprouts, blanched" data-ko="콩나물 100g (데친 것)">콩나물 100g (데친 것)</span></li>
+            <li><span data-en="4 shiitake mushrooms, sliced &amp; sautéed" data-ko="표고버섯 4개 (볶은 것)">표고버섯 4개 (볶은 것)</span></li>
+            <li><span data-en="2 eggs (fried sunny side up)" data-ko="달걀 2개 (반숙)">달걀 2개 (반숙)</span></li>
+            <li><span data-en="2 tsp gochujang (Korean chili paste — use mild)" data-ko="고추장 2 작은술 (순한 것으로)">고추장 2 작은술 (순한 것으로)</span></li>
+            <li><span data-en="1 tsp sesame oil, sesame seeds" data-ko="참기름 1 작은술, 깨소금">참기름 1 작은술, 깨소금</span></li>
+          </ul>
+
+          <h4><span data-en="Cooking Tips" data-ko="조리 팁">조리 팁</span></h4>
+          <p><span data-en="Season each vegetable separately with a pinch of salt, garlic, and sesame oil before arranging over rice. Use less gochujang if you prefer mild." data-ko="각 나물을 소금, 마늘, 참기름으로 따로 무친 후 밥 위에 예쁘게 올려주세요. 맵지 않게 하려면 고추장을 적게 사용하세요.">각 나물을 소금, 마늘, 참기름으로 따로 무친 후 밥 위에 예쁘게 올려주세요. 맵지 않게 하려면 고추장을 적게 사용하세요.</span></p>
+          <div class="health-note">
+            💚 <span data-en="Senior tip: Packed with a variety of vegetables. Ask for gochujang on the side to control spice and sodium." data-ko="건강 팁: 다양한 채소가 가득합니다. 고추장을 따로 달라고 하면 매운맛과 나트륨을 조절할 수 있어요.">건강 팁: 다양한 채소가 가득합니다. 고추장을 따로 달라고 하면 매운맛과 나트륨을 조절할 수 있어요.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ─── RECIPE 3: 삼계탕 ─── -->
+      <article id="r3" class="recipe-card" data-category="korean" aria-labelledby="r3-name" data-query="chicken ginseng soup">
+        <div class="recipe-card-header">
+          <div class="recipe-names">
+            <h3 id="r3-name">
+              <span data-en="Samgyetang (Ginseng Chicken Soup)" data-ko="삼계탕">삼계탕</span>
+            </h3>
+            <div class="sub-name">
+              <span data-en="삼계탕" data-ko="Samgyetang · Ginseng Chicken Soup">Samgyetang · Ginseng Chicken Soup</span>
+            </div>
+          </div>
+          <span class="recipe-category-badge">
+            <span data-en="Korean" data-ko="한식">한식</span>
+          </span>
+        </div>
+
+        <p class="recipe-desc">
+          <span data-en="A nourishing whole-chicken soup stuffed with glutinous rice, garlic, ginseng, and jujubes. High in protein and collagen — a traditional Korean health food." data-ko="찹쌀, 마늘, 인삼, 대추를 넣은 보양 닭 요리입니다. 단백질과 콜라겐이 풍부한 전통 보양식입니다.">찹쌀, 마늘, 인삼, 대추를 넣은 보양 닭 요리입니다. 단백질과 콜라겐이 풍부한 전통 보양식입니다.</span>
+        </p>
+
+        <div class="nutrition-row">
+          <div class="nutr-pill"><span class="label"><span data-en="Cal" data-ko="칼로리">칼로리</span></span> 380 kcal</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Protein" data-ko="단백질">단백질</span></span> 35 g</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Sodium" data-ko="나트륨">나트륨</span></span> 185 mg</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Carbs" data-ko="탄수화물">탄수화물</span></span> 28 g</div>
+        </div>
+
+        <button class="toggle-details-btn" onclick="toggleDetails('r3-details', this)" aria-expanded="false">
+          <span data-en="▸ Show Ingredients &amp; Tips" data-ko="▸ 재료 &amp; 조리 팁 보기">▸ 재료 &amp; 조리 팁 보기</span>
+        </button>
+
+        <div class="recipe-details" id="r3-details">
+          <h4><span data-en="Ingredients (1 serving)" data-ko="재료 (1인분)">재료 (1인분)</span></h4>
+          <ul>
+            <li><span data-en="1 small whole chicken (about 500 g)" data-ko="영계 1마리 (약 500g)">영계 1마리 (약 500g)</span></li>
+            <li><span data-en="¼ cup glutinous rice, soaked 1 hour" data-ko="찹쌀 ¼컵 (1시간 불리기)">찹쌀 ¼컵 (1시간 불리기)</span></li>
+            <li><span data-en="1 piece fresh ginseng (or 1 tsp ginseng powder)" data-ko="수삼 1뿌리 (또는 인삼 가루 1 작은술)">수삼 1뿌리 (또는 인삼 가루 1 작은술)</span></li>
+            <li><span data-en="5 garlic cloves, whole" data-ko="마늘 5쪽 (통마늘)">마늘 5쪽 (통마늘)</span></li>
+            <li><span data-en="3–4 dried jujubes (daechu)" data-ko="대추 3–4개">대추 3–4개</span></li>
+            <li><span data-en="5 cups water, green onion for garnish" data-ko="물 5컵, 파 (고명용)">물 5컵, 파 (고명용)</span></li>
+          </ul>
+
+          <h4><span data-en="Cooking Tips" data-ko="조리 팁">조리 팁</span></h4>
+          <p><span data-en="Stuff the chicken cavity with rice, garlic, ginseng, and jujubes. Place in a pot with water and bring to a boil, then simmer 50–60 minutes. Salt lightly at the table." data-ko="닭 뱃속에 찹쌀, 마늘, 인삼, 대추를 채워 넣고 물을 부어 끓이세요. 끓기 시작하면 약불로 50-60분 더 끓입니다. 소금은 식탁에서 각자 간을 맞추세요.">닭 뱃속에 찹쌀, 마늘, 인삼, 대추를 채워 넣고 물을 부어 끓이세요. 끓기 시작하면 약불로 50-60분 더 끓입니다. 소금은 식탁에서 각자 간을 맞추세요.</span></p>
+          <div class="health-note">
+            💚 <span data-en="Senior tip: Very low sodium naturally — add salt at the table only. Excellent immune-boosting and energy-restoring food for seniors." data-ko="건강 팁: 나트륨이 매우 낮습니다. 소금은 식탁에서만 가볍게 추가하세요. 어르신의 면역력과 기력 회복에 좋습니다.">건강 팁: 나트륨이 매우 낮습니다. 소금은 식탁에서만 가볍게 추가하세요. 어르신의 면역력과 기력 회복에 좋습니다.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ─── RECIPE 4: 잡채 ─── -->
+      <article id="r4" class="recipe-card" data-category="korean" aria-labelledby="r4-name" data-query="glass noodles stir fried vegetables">
+        <div class="recipe-card-header">
+          <div class="recipe-names">
+            <h3 id="r4-name">
+              <span data-en="Japchae (Glass Noodle Stir-Fry)" data-ko="잡채">잡채</span>
+            </h3>
+            <div class="sub-name">
+              <span data-en="잡채" data-ko="Japchae · Glass Noodle Stir-Fry">Japchae · Glass Noodle Stir-Fry</span>
+            </div>
+          </div>
+          <span class="recipe-category-badge">
+            <span data-en="Korean" data-ko="한식">한식</span>
+          </span>
+        </div>
+
+        <p class="recipe-desc">
+          <span data-en="Glass noodles stir-fried with colorful vegetables and a savory-sweet sesame soy sauce. Naturally gluten-free and low in fat." data-ko="당면과 다채로운 채소를 달콤짭짤한 참깨 간장 소스에 볶은 요리입니다. 글루텐 프리에 지방이 낮아요.">당면과 다채로운 채소를 달콤짭짤한 참깨 간장 소스에 볶은 요리입니다. 글루텐 프리에 지방이 낮아요.</span>
+        </p>
+
+        <div class="nutrition-row">
+          <div class="nutr-pill"><span class="label"><span data-en="Cal" data-ko="칼로리">칼로리</span></span> 210 kcal</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Protein" data-ko="단백질">단백질</span></span> 6 g</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Sodium" data-ko="나트륨">나트륨</span></span> 390 mg</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Fat" data-ko="지방">지방</span></span> 5 g</div>
+        </div>
+
+        <button class="toggle-details-btn" onclick="toggleDetails('r4-details', this)" aria-expanded="false">
+          <span data-en="▸ Show Ingredients &amp; Tips" data-ko="▸ 재료 &amp; 조리 팁 보기">▸ 재료 &amp; 조리 팁 보기</span>
+        </button>
+
+        <div class="recipe-details" id="r4-details">
+          <h4><span data-en="Ingredients (2 servings)" data-ko="재료 (2인분)">재료 (2인분)</span></h4>
+          <ul>
+            <li><span data-en="150 g glass noodles (dangmyeon), cooked" data-ko="당면 150g (삶은 것)">당면 150g (삶은 것)</span></li>
+            <li><span data-en="1 cup spinach, blanched" data-ko="시금치 1컵 (데친 것)">시금치 1컵 (데친 것)</span></li>
+            <li><span data-en="1 carrot, julienned" data-ko="당근 1개 (채 썰기)">당근 1개 (채 썰기)</span></li>
+            <li><span data-en="½ onion, sliced" data-ko="양파 ½개 (채 썰기)">양파 ½개 (채 썰기)</span></li>
+            <li><span data-en="4 mushrooms (shiitake or button), sliced" data-ko="버섯 4개 (표고 또는 양송이)">버섯 4개 (표고 또는 양송이)</span></li>
+            <li><span data-en="2 tbsp low-sodium soy sauce, 1 tbsp sugar, 1 tbsp sesame oil" data-ko="저염 간장 2 큰술, 설탕 1 큰술, 참기름 1 큰술">저염 간장 2 큰술, 설탕 1 큰술, 참기름 1 큰술</span></li>
+          </ul>
+
+          <h4><span data-en="Cooking Tips" data-ko="조리 팁">조리 팁</span></h4>
+          <p><span data-en="Mix sauce ingredients first. Stir-fry vegetables separately, then combine with noodles and sauce over medium heat." data-ko="소스 재료를 미리 섞어두세요. 각 채소를 따로 볶은 후 당면과 소스를 넣고 중불에서 함께 볶아주세요.">소스 재료를 미리 섞어두세요. 각 채소를 따로 볶은 후 당면과 소스를 넣고 중불에서 함께 볶아주세요.</span></p>
+          <div class="health-note">
+            💚 <span data-en="Senior tip: Use low-sodium soy sauce to reduce salt. Add more vegetables and less noodles to increase nutrients per calorie." data-ko="건강 팁: 저염 간장을 사용하면 나트륨을 줄일 수 있어요. 당면을 줄이고 채소를 늘리면 더욱 영양가 있어요.">건강 팁: 저염 간장을 사용하면 나트륨을 줄일 수 있어요. 당면을 줄이고 채소를 늘리면 더욱 영양가 있어요.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ─── RECIPE 5: Grilled Salmon ─── -->
+      <article id="r5" class="recipe-card" data-category="american" aria-labelledby="r5-name" data-query="grilled salmon roasted vegetables">
+        <div class="recipe-card-header">
+          <div class="recipe-names">
+            <h3 id="r5-name">
+              <span data-en="Grilled Salmon with Roasted Vegetables" data-ko="연어 구이와 구운 채소">연어 구이와 구운 채소</span>
+            </h3>
+            <div class="sub-name">
+              <span data-en="연어 구이" data-ko="Grilled Salmon">Grilled Salmon</span>
+            </div>
+          </div>
+          <span class="recipe-category-badge">
+            <span data-en="American" data-ko="미식">미식</span>
+          </span>
+        </div>
+
+        <p class="recipe-desc">
+          <span data-en="Oven-baked salmon fillet with broccoli and bell peppers. Naturally rich in heart-healthy omega-3 fatty acids and protein." data-ko="브로콜리와 피망을 곁들인 오븐 구이 연어 필레입니다. 심장 건강에 좋은 오메가-3 지방산과 단백질이 풍부해요.">브로콜리와 피망을 곁들인 오븐 구이 연어 필레입니다. 심장 건강에 좋은 오메가-3 지방산과 단백질이 풍부해요.</span>
+        </p>
+
+        <div class="nutrition-row">
+          <div class="nutr-pill"><span class="label"><span data-en="Cal" data-ko="칼로리">칼로리</span></span> 370 kcal</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Protein" data-ko="단백질">단백질</span></span> 34 g</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Sodium" data-ko="나트륨">나트륨</span></span> 210 mg</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Omega-3" data-ko="오메가-3">오메가-3</span></span> ★★★</div>
+        </div>
+
+        <button class="toggle-details-btn" onclick="toggleDetails('r5-details', this)" aria-expanded="false">
+          <span data-en="▸ Show Ingredients &amp; Tips" data-ko="▸ 재료 &amp; 조리 팁 보기">▸ 재료 &amp; 조리 팁 보기</span>
+        </button>
+
+        <div class="recipe-details" id="r5-details">
+          <h4><span data-en="Ingredients (2 servings)" data-ko="재료 (2인분)">재료 (2인분)</span></h4>
+          <ul>
+            <li><span data-en="2 salmon fillets (150 g each)" data-ko="연어 필레 2조각 (각 150g)">연어 필레 2조각 (각 150g)</span></li>
+            <li><span data-en="2 cups broccoli florets" data-ko="브로콜리 2컵 (송이로 나눈 것)">브로콜리 2컵 (송이로 나눈 것)</span></li>
+            <li><span data-en="1 bell pepper, sliced" data-ko="파프리카 1개 (채 썰기)">파프리카 1개 (채 썰기)</span></li>
+            <li><span data-en="2 tbsp olive oil" data-ko="올리브유 2 큰술">올리브유 2 큰술</span></li>
+            <li><span data-en="Juice of 1 lemon" data-ko="레몬즙 1개 분량">레몬즙 1개 분량</span></li>
+            <li><span data-en="2 garlic cloves, minced; dried herbs (thyme, rosemary)" data-ko="마늘 2쪽 (다진 것), 허브 (타임, 로즈마리)">마늘 2쪽 (다진 것), 허브 (타임, 로즈마리)</span></li>
+          </ul>
+
+          <h4><span data-en="Cooking Tips" data-ko="조리 팁">조리 팁</span></h4>
+          <p><span data-en="Preheat oven to 200°C (400°F). Toss vegetables with olive oil and spread on a baking sheet. Lay salmon on top, drizzle with lemon and garlic. Bake 18–22 minutes." data-ko="오븐을 200°C로 예열하세요. 채소에 올리브유를 버무려 베이킹 시트에 펼치고 연어를 올린 후 레몬즙과 마늘을 뿌려주세요. 18-22분 구우면 됩니다.">오븐을 200°C로 예열하세요. 채소에 올리브유를 버무려 베이킹 시트에 펼치고 연어를 올린 후 레몬즙과 마늘을 뿌려주세요. 18-22분 구우면 됩니다.</span></p>
+          <div class="health-note">
+            💚 <span data-en="Senior tip: Excellent for heart health and brain function. Low in sodium — one of the best anti-inflammatory meals for seniors." data-ko="건강 팁: 심장과 뇌 건강에 탁월합니다. 나트륨이 낮고 어르신의 염증 완화에 좋은 최고의 식단 중 하나입니다.">건강 팁: 심장과 뇌 건강에 탁월합니다. 나트륨이 낮고 어르신의 염증 완화에 좋은 최고의 식단 중 하나입니다.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ─── RECIPE 6: Oatmeal Bowl ─── -->
+      <article id="r6" class="recipe-card" data-category="american" aria-labelledby="r6-name" data-query="oatmeal rolled oats berries">
+        <div class="recipe-card-header">
+          <div class="recipe-names">
+            <h3 id="r6-name">
+              <span data-en="Berry Oatmeal Bowl" data-ko="베리 오트밀 볼">베리 오트밀 볼</span>
+            </h3>
+            <div class="sub-name">
+              <span data-en="베리 오트밀" data-ko="Berry Oatmeal">Berry Oatmeal</span>
+            </div>
+          </div>
+          <span class="recipe-category-badge">
+            <span data-en="American" data-ko="미식">미식</span>
+          </span>
+        </div>
+
+        <p class="recipe-desc">
+          <span data-en="Warm rolled oats topped with fresh berries, walnuts, and a drizzle of honey. High in soluble fiber — great for cholesterol and blood sugar control." data-ko="신선한 베리, 호두, 꿀을 올린 따뜻한 오트밀입니다. 수용성 식이섬유가 풍부해 콜레스테롤과 혈당 조절에 좋아요.">신선한 베리, 호두, 꿀을 올린 따뜻한 오트밀입니다. 수용성 식이섬유가 풍부해 콜레스테롤과 혈당 조절에 좋아요.</span>
+        </p>
+
+        <div class="nutrition-row">
+          <div class="nutr-pill"><span class="label"><span data-en="Cal" data-ko="칼로리">칼로리</span></span> 280 kcal</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Protein" data-ko="단백질">단백질</span></span> 8 g</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Sodium" data-ko="나트륨">나트륨</span></span> 85 mg</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Fiber" data-ko="식이섬유">식이섬유</span></span> 7 g</div>
+        </div>
+
+        <button class="toggle-details-btn" onclick="toggleDetails('r6-details', this)" aria-expanded="false">
+          <span data-en="▸ Show Ingredients &amp; Tips" data-ko="▸ 재료 &amp; 조리 팁 보기">▸ 재료 &amp; 조리 팁 보기</span>
+        </button>
+
+        <div class="recipe-details" id="r6-details">
+          <h4><span data-en="Ingredients (1 serving)" data-ko="재료 (1인분)">재료 (1인분)</span></h4>
+          <ul>
+            <li><span data-en="½ cup rolled oats (not instant)" data-ko="오트밀 ½컵 (인스턴트 제외)">오트밀 ½컵 (인스턴트 제외)</span></li>
+            <li><span data-en="1 cup low-fat milk or unsweetened almond milk" data-ko="저지방 우유 또는 무가당 아몬드 우유 1컵">저지방 우유 또는 무가당 아몬드 우유 1컵</span></li>
+            <li><span data-en="½ cup mixed berries (blueberries, strawberries)" data-ko="블루베리, 딸기 등 혼합 베리 ½컵">블루베리, 딸기 등 혼합 베리 ½컵</span></li>
+            <li><span data-en="1 tbsp chopped walnuts" data-ko="호두 1 큰술 (잘게 썬 것)">호두 1 큰술 (잘게 썬 것)</span></li>
+            <li><span data-en="1 tsp honey; dash of cinnamon" data-ko="꿀 1 작은술, 시나몬 약간">꿀 1 작은술, 시나몬 약간</span></li>
+          </ul>
+
+          <h4><span data-en="Cooking Tips" data-ko="조리 팁">조리 팁</span></h4>
+          <p><span data-en="Simmer oats in milk for 5 minutes, stirring often. Pour into a bowl and top with berries, walnuts, honey, and cinnamon. No added salt needed." data-ko="우유에 오트밀을 넣고 5분간 저으면서 끓이세요. 그릇에 담고 베리, 호두, 꿀, 시나몬을 올리면 됩니다. 소금은 필요 없어요.">우유에 오트밀을 넣고 5분간 저으면서 끓이세요. 그릇에 담고 베리, 호두, 꿀, 시나몬을 올리면 됩니다. 소금은 필요 없어요.</span></p>
+          <div class="health-note">
+            💚 <span data-en="Senior tip: Very low sodium. Beta-glucan in oats helps lower LDL cholesterol. Berries provide antioxidants for brain and heart health." data-ko="건강 팁: 나트륨이 매우 낮습니다. 오트밀의 베타-글루칸이 나쁜 콜레스테롤을 낮춰주고, 베리의 항산화 성분이 뇌와 심장 건강을 도와줍니다.">건강 팁: 나트륨이 매우 낮습니다. 오트밀의 베타-글루칸이 나쁜 콜레스테롤을 낮춰주고, 베리의 항산화 성분이 뇌와 심장 건강을 도와줍니다.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ─── RECIPE 7: Chicken Soup ─── -->
+      <article id="r7" class="recipe-card" data-category="american" aria-labelledby="r7-name" data-query="chicken vegetable soup">
+        <div class="recipe-card-header">
+          <div class="recipe-names">
+            <h3 id="r7-name">
+              <span data-en="Chicken Vegetable Soup" data-ko="닭고기 채소 수프">닭고기 채소 수프</span>
+            </h3>
+            <div class="sub-name">
+              <span data-en="닭고기 수프" data-ko="Chicken Vegetable Soup">Chicken Vegetable Soup</span>
+            </div>
+          </div>
+          <span class="recipe-category-badge">
+            <span data-en="American" data-ko="미식">미식</span>
+          </span>
+        </div>
+
+        <p class="recipe-desc">
+          <span data-en="A classic, comforting soup with tender chicken, carrots, celery, and herbs. Easy to digest — ideal for seniors, especially after illness." data-ko="부드러운 닭고기, 당근, 셀러리와 허브로 만든 따뜻한 수프입니다. 소화가 잘 되어 어르신, 특히 병후에 좋습니다.">부드러운 닭고기, 당근, 셀러리와 허브로 만든 따뜻한 수프입니다. 소화가 잘 되어 어르신, 특히 병후에 좋습니다.</span>
+        </p>
+
+        <div class="nutrition-row">
+          <div class="nutr-pill"><span class="label"><span data-en="Cal" data-ko="칼로리">칼로리</span></span> 215 kcal</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Protein" data-ko="단백질">단백질</span></span> 22 g</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Sodium" data-ko="나트륨">나트륨</span></span> 340 mg</div>
+          <div class="nutr-pill"><span class="label"><span data-en="Fiber" data-ko="식이섬유">식이섬유</span></span> 4 g</div>
+        </div>
+
+        <button class="toggle-details-btn" onclick="toggleDetails('r7-details', this)" aria-expanded="false">
+          <span data-en="▸ Show Ingredients &amp; Tips" data-ko="▸ 재료 &amp; 조리 팁 보기">▸ 재료 &amp; 조리 팁 보기</span>
+        </button>
+
+        <div class="recipe-details" id="r7-details">
+          <h4><span data-en="Ingredients (3–4 servings)" data-ko="재료 (3~4인분)">재료 (3~4인분)</span></h4>
+          <ul>
+            <li><span data-en="300 g chicken breast, cubed" data-ko="닭가슴살 300g (깍둑썰기)">닭가슴살 300g (깍둑썰기)</span></li>
+            <li><span data-en="2 large carrots, sliced" data-ko="당근 2개 (납작 썰기)">당근 2개 (납작 썰기)</span></li>
+            <li><span data-en="2 celery stalks, sliced" data-ko="셀러리 2줄기 (썰기)">셀러리 2줄기 (썰기)</span></li>
+            <li><span data-en="1 medium onion, diced" data-ko="양파 1개 (다지기)">양파 1개 (다지기)</span></li>
+            <li><span data-en="4 cups low-sodium chicken broth" data-ko="저염 닭육수 4컵">저염 닭육수 4컵</span></li>
+            <li><span data-en="Bay leaf, thyme, black pepper to taste" data-ko="월계수 잎, 타임, 후추 약간">월계수 잎, 타임, 후추 약간</span></li>
+          </ul>
+
+          <h4><span data-en="Cooking Tips" data-ko="조리 팁">조리 팁</span></h4>
+          <p><span data-en="Simmer chicken and vegetables in low-sodium broth 25–30 minutes until chicken is tender. Remove bay leaf before serving." data-ko="저염 육수에 닭고기와 채소를 넣고 25-30분 끓이세요. 닭고기가 부드럽게 익으면 월계수 잎을 꺼내고 드세요.">저염 육수에 닭고기와 채소를 넣고 25-30분 끓이세요. 닭고기가 부드럽게 익으면 월계수 잎을 꺼내고 드세요.</span></p>
+          <div class="health-note">
+            💚 <span data-en="Senior tip: Use low-sodium broth to keep sodium under control. Easy to chew and digest — great for days when appetite is low." data-ko="건강 팁: 저염 육수를 사용해 나트륨을 조절하세요. 씹고 소화하기 쉬워 입맛 없을 때 좋습니다.">건강 팁: 저염 육수를 사용해 나트륨을 조절하세요. 씹고 소화하기 쉬워 입맛 없을 때 좋습니다.</span>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /#recipe-list -->
+
+    <!-- USDA Live explanation -->
+    <div class="health-note" style="margin-top:24px;">
+      📡 <span data-en="Cards marked with USDA Live show real-time nutrition data pulled directly from the USDA FoodData Central database — the official U.S. government nutrition source. Data is shown per 100g serving." data-ko="USDA 실시간 표시가 있는 카드는 미국 정부 공식 영양 데이터베이스인 USDA FoodData Central에서 실시간으로 가져온 영양 정보를 보여줍니다. 데이터는 100g 기준입니다.">Cards marked with USDA Live show real-time nutrition data pulled directly from the USDA FoodData Central database — the official U.S. government nutrition source. Data is shown per 100g serving.</span>
+    </div>
+
+    <!-- No-results message (hidden by default) -->
+    <div id="no-results" class="status-msg" style="display:none;">
+      <span data-en="No recipes found for this category." data-ko="이 카테고리의 레시피가 없습니다.">이 카테고리의 레시피가 없습니다.</span>
+    </div>
+
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p><span data-en="빛나는 음식 · Radiant Food" data-ko="빛나는 음식 · Radiant Food">빛나는 음식 · Radiant Food</span></p>
+    <p class="tiny"><span data-en="Built for Korean American elders · No login required" data-ko="한국계 미국인 어르신을 위해 제작 · 로그인 불필요">한국계 미국인 어르신을 위해 제작 · 로그인 불필요</span></p>
+  </footer>
+
+  <script src="js/recipes-data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // ── Live USDA nutrition data ────────────────────────────
+    async function loadNutrition() {
+      const cards = document.querySelectorAll('.recipe-card[data-query]');
+
+      for (const card of cards) {
+        try {
+          const res = await fetch(
+            `http://localhost:3001/api/nutrition?q=${encodeURIComponent(card.dataset.query)}`
+          );
+          if (!res.ok) continue;
+          const data = await res.json();
+          if (!data.foods || !data.foods.length) continue;
+
+          const f = data.foods[0];
+
+          // Build pill definitions from whatever the API returned
+          const pills = [
+            f.calories != null && { en: 'Cal',     ko: '칼로리',   val: `${Math.round(f.calories)} kcal` },
+            f.protein  != null && { en: 'Protein', ko: '단백질',   val: `${f.protein.toFixed(1)} g` },
+            f.sodium   != null && { en: 'Sodium',  ko: '나트륨',   val: `${Math.round(f.sodium)} mg` },
+            f.fiber    != null && { en: 'Fiber',   ko: '식이섬유', val: `${f.fiber.toFixed(1)} g` },
+          ].filter(Boolean);
+
+          if (!pills.length) continue;
+
+          const row = card.querySelector('.nutrition-row');
+          row.innerHTML =
+            pills.map(p => `
+              <div class="nutr-pill">
+                <span class="label">
+                  <span data-en="${p.en}" data-ko="${p.ko}">${currentLang === 'en' ? p.en : p.ko}</span>
+                </span> ${p.val}
+              </div>`).join('') +
+            `<div class="nutr-pill" style="background:rgba(200,169,74,0.25);color:var(--gold);">
+               <span data-en="📡 USDA Live" data-ko="📡 USDA 실시간">${currentLang === 'en' ? '📡 USDA Live' : '📡 USDA 실시간'}</span>
+             </div>`;
+
+          // Re-apply current language so new spans are translated
+          setLang(currentLang);
+
+        } catch {
+          // Server not running — static data stays, no error shown
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadNutrition);
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Render Recipe of the Week
+      var rotw = getROTW();
+      document.getElementById('rotw-section').innerHTML =
+        buildFeaturedCard(rotw.featured, currentLang, '#' + rotw.featured.id) +
+        buildPastRow(rotw.past, currentLang, function (r) { return '#' + r.id; });
+
+      // If navigated here via a hash (e.g. recipes.html#r2), scroll + expand that card
+      var hash = location.hash.slice(1);
+      if (/^r[1-7]$/.test(hash)) {
+        setTimeout(function () {
+          var el = document.getElementById(hash);
+          if (!el) return;
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          var dEl = document.getElementById(hash + '-details');
+          var btn = el.querySelector('.toggle-details-btn');
+          if (dEl && btn && !dEl.classList.contains('open')) toggleDetails(hash + '-details', btn);
+          el.style.outline = '3px solid var(--gold)';
+          el.style.outlineOffset = '4px';
+          setTimeout(function () { el.style.outline = ''; el.style.outlineOffset = ''; }, 2500);
+        }, 350);
+      }
+    });
+
+    function toggleDetails(id, btn) {
+      const details = document.getElementById(id);
+      const isOpen  = details.classList.contains('open');
+      const label   = btn.querySelector('[data-en]');
+
+      details.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+
+      label.dataset.en = isOpen ? '▸ Show Ingredients & Tips' : '▸ Hide Details';
+      label.dataset.ko = isOpen ? '▸ 재료 & 조리 팁 보기'   : '▸ 닫기';
+      label.textContent = currentLang === 'en' ? label.dataset.en : label.dataset.ko;
+    }
+
+    function filterRecipes(category, clickedBtn) {
+      // Update tab states
+      document.querySelectorAll('.filter-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-pressed', 'false');
+      });
+      clickedBtn.classList.add('active');
+      clickedBtn.setAttribute('aria-pressed', 'true');
+
+      // Show/hide cards
+      const cards = document.querySelectorAll('.recipe-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const match = category === 'all' || card.dataset.category === category;
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+
+      document.getElementById('no-results').style.display = visible === 0 ? '' : 'none';
+    }
+  </script>
+</body>
+</html>

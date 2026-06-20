@@ -1,0 +1,15 @@
+# Environment files (contain API keys — never commit these)
+server/.env
+.env
+
+# Node modules
+node_modules/
+server/node_modules/
+
+# macOS metadata
+.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>영양 정보 · Radiant Food</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" role="banner">
+    <a href="index.html" class="site-logo">
+      <span data-en="✨ Radiant Food" data-ko="✨ 빛나는 음식">✨ 빛나는 음식</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="recipes.html"        class="nav-link"><span data-en="Recipes"     data-ko="레시피">레시피</span></a>
+      <a href="restaurants.html"    class="nav-link"><span data-en="Restaurants" data-ko="음식점">음식점</span></a>
+      <a href="nutrition-tips.html" class="nav-link active"><span data-en="Nutrition" data-ko="영양 정보">영양 정보</span></a>
+    </nav>
+
+    <div class="header-right">
+      <div class="lang-toggle" role="group" aria-label="언어 선택 / Language">
+        <button class="lang-btn" data-lang="ko" onclick="setLang('ko')">한국어</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
+      </div>
+      <button class="read-btn" id="read-btn" onclick="toggleReadPage()">
+        <span data-en="🔊 Read Aloud" data-ko="🔊 읽어주기">🔊 읽어주기</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="read-content">
+
+    <a href="index.html" class="back-link">
+      ← <span data-en="Back to Home" data-ko="홈으로 돌아가기">홈으로 돌아가기</span>
+    </a>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+      <h1><span data-en="💪 Nutrition Tips &amp; Health Plans" data-ko="💪 영양 정보 &amp; 건강 관리">💪 영양 정보 &amp; 건강 관리</span></h1>
+      <p>
+        <span data-en="Simple, science-backed health tips tailored for Korean American seniors. Short cards — no long paragraphs." data-ko="한국계 미국인 어르신을 위한 쉽고 과학적인 건강 정보입니다. 짧고 명확하게 알려드립니다.">한국계 미국인 어르신을 위한 쉽고 과학적인 건강 정보입니다. 짧고 명확하게 알려드립니다.</span>
+      </p>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         CATEGORY 1: SODIUM / 나트륨
+    ══════════════════════════════════════ -->
+    <p class="tips-category-label">
+      <span data-en="SODIUM MANAGEMENT" data-ko="나트륨 관리">나트륨 관리</span>
+    </p>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">🧂</div>
+      <div class="tip-text">
+        <h3><span data-en="Keep Sodium Under 1,500 mg/Day" data-ko="하루 나트륨 1,500mg 이하로 유지하기">하루 나트륨 1,500mg 이하로 유지하기</span></h3>
+        <p><span data-en="Seniors need even less sodium than younger adults. The American Heart Association recommends under 1,500 mg/day to protect heart health and blood pressure." data-ko="어르신은 젊은 사람보다 나트륨을 더 적게 섭취해야 합니다. 미국심장협회는 심장과 혈압 보호를 위해 하루 1,500mg 이하를 권장합니다.">어르신은 젊은 사람보다 나트륨을 더 적게 섭취해야 합니다. 미국심장협회는 심장과 혈압 보호를 위해 하루 1,500mg 이하를 권장합니다.</span></p>
+      </div>
+    </div>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">🍲</div>
+      <div class="tip-text">
+        <h3><span data-en="Tips for Reducing Sodium in Korean Food" data-ko="한식에서 나트륨 줄이는 방법">한식에서 나트륨 줄이는 방법</span></h3>
+        <ul>
+          <li><span data-en="Choose low-sodium soy sauce (저염 간장)" data-ko="저염 간장 사용하기">저염 간장 사용하기</span></li>
+          <li><span data-en="Rinse canned ingredients (kimchi, vegetables) before eating" data-ko="통조림 식품(김치, 채소)은 먹기 전에 물에 헹구기">통조림 식품(김치, 채소)은 먹기 전에 물에 헹구기</span></li>
+          <li><span data-en="Use less doenjang paste — a little goes a long way" data-ko="된장은 적게 사용해도 맛이 충분히 나옵니다">된장은 적게 사용해도 맛이 충분히 나옵니다</span></li>
+          <li><span data-en="Flavor food with garlic, ginger, and sesame oil instead of more salt" data-ko="소금 대신 마늘, 생강, 참기름으로 맛 내기">소금 대신 마늘, 생강, 참기름으로 맛 내기</span></li>
+          <li><span data-en="Ask for sauce on the side at restaurants" data-ko="식당에서 소스는 따로 달라고 요청하기">식당에서 소스는 따로 달라고 요청하기</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         CATEGORY 2: HYDRATION / 수분 섭취
+    ══════════════════════════════════════ -->
+    <p class="tips-category-label">
+      <span data-en="HYDRATION" data-ko="수분 섭취">수분 섭취</span>
+    </p>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">💧</div>
+      <div class="tip-text">
+        <h3><span data-en="Drink 6–8 Cups of Water Daily" data-ko="하루 6~8잔의 물 마시기">하루 6~8잔의 물 마시기</span></h3>
+        <p><span data-en="Seniors often feel less thirsty, but the body still needs water. Dehydration can cause dizziness, confusion, and kidney problems. Set a reminder to drink water every 2 hours." data-ko="어르신은 갈증을 덜 느끼지만 몸은 여전히 수분이 필요합니다. 탈수는 어지러움, 혼란, 신장 문제를 일으킬 수 있어요. 2시간마다 물을 마시도록 알림을 설정하세요.">어르신은 갈증을 덜 느끼지만 몸은 여전히 수분이 필요합니다. 탈수는 어지러움, 혼란, 신장 문제를 일으킬 수 있어요. 2시간마다 물을 마시도록 알림을 설정하세요.</span></p>
+      </div>
+    </div>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">🍵</div>
+      <div class="tip-text">
+        <h3><span data-en="Good Hydration Choices Beyond Water" data-ko="물 외에 수분 보충에 좋은 음료">물 외에 수분 보충에 좋은 음료</span></h3>
+        <ul>
+          <li><span data-en="Barley tea (보리차) — unsweetened, naturally hydrating" data-ko="보리차 — 무가당, 자연적인 수분 보충">보리차 — 무가당, 자연적인 수분 보충</span></li>
+          <li><span data-en="Warm water with a slice of lemon or ginger" data-ko="레몬 또는 생강 슬라이스를 넣은 따뜻한 물">레몬 또는 생강 슬라이스를 넣은 따뜻한 물</span></li>
+          <li><span data-en="Watermelon, cucumber, and oranges (80–90% water)" data-ko="수박, 오이, 오렌지 (수분 함량 80~90%)">수박, 오이, 오렌지 (수분 함량 80~90%)</span></li>
+          <li><span data-en="Soup-based meals (like miyeokguk, doenjang jjigae) count too" data-ko="미역국, 된장찌개 같은 국물 요리도 수분 섭취에 포함됩니다">미역국, 된장찌개 같은 국물 요리도 수분 섭취에 포함됩니다</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         CATEGORY 3: BLOOD PRESSURE / 혈압
+    ══════════════════════════════════════ -->
+    <p class="tips-category-label">
+      <span data-en="BLOOD PRESSURE" data-ko="혈압 관리">혈압 관리</span>
+    </p>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">❤️</div>
+      <div class="tip-text">
+        <h3><span data-en="Potassium Helps Lower Blood Pressure" data-ko="칼륨이 혈압을 낮추는 데 도움이 됩니다">칼륨이 혈압을 낮추는 데 도움이 됩니다</span></h3>
+        <p><span data-en="Eating potassium-rich foods helps your body balance sodium and relax blood vessel walls. Aim for 2,600–3,400 mg of potassium daily." data-ko="칼륨이 풍부한 음식은 체내 나트륨 균형을 잡고 혈관 벽을 이완시키는 데 도움을 줍니다. 하루 2,600~3,400mg의 칼륨을 목표로 하세요.">칼륨이 풍부한 음식은 체내 나트륨 균형을 잡고 혈관 벽을 이완시키는 데 도움을 줍니다. 하루 2,600~3,400mg의 칼륨을 목표로 하세요.</span></p>
+        <ul>
+          <li><span data-en="🍌 Banana · 🍠 Sweet potato · 🫘 Black beans" data-ko="🍌 바나나 · 🍠 고구마 · 🫘 검은콩">🍌 바나나 · 🍠 고구마 · 🫘 검은콩</span></li>
+          <li><span data-en="🥬 Spinach · 🥑 Avocado · 🐟 Salmon" data-ko="🥬 시금치 · 🥑 아보카도 · 🐟 연어">🥬 시금치 · 🥑 아보카도 · 🐟 연어</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">🫀</div>
+      <div class="tip-text">
+        <h3><span data-en="The DASH Diet — Designed for Blood Pressure" data-ko="DASH 식단 — 혈압을 위해 설계된 식단">DASH 식단 — 혈압을 위해 설계된 식단</span></h3>
+        <p><span data-en="The DASH diet (Dietary Approaches to Stop Hypertension) is clinically proven to lower blood pressure. It emphasizes: fruits, vegetables, whole grains, lean protein, and low-fat dairy. It reduces: red meat, sweets, sugary drinks, and sodium." data-ko="DASH 식단(고혈압 예방 식단)은 혈압을 낮추는 데 임상적으로 검증된 식단입니다. 과일, 채소, 통곡물, 저지방 단백질, 저지방 유제품을 강조하고 붉은 고기, 단 음식, 단 음료, 나트륨을 줄입니다.">DASH 식단(고혈압 예방 식단)은 혈압을 낮추는 데 임상적으로 검증된 식단입니다. 과일, 채소, 통곡물, 저지방 단백질, 저지방 유제품을 강조하고 붉은 고기, 단 음식, 단 음료, 나트륨을 줄입니다.</span></p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         CATEGORY 4: PROTEIN & MUSCLE / 단백질
+    ══════════════════════════════════════ -->
+    <p class="tips-category-label">
+      <span data-en="PROTEIN &amp; MUSCLE HEALTH" data-ko="단백질 &amp; 근육 건강">단백질 &amp; 근육 건강</span>
+    </p>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">💪</div>
+      <div class="tip-text">
+        <h3><span data-en="Seniors Need More Protein, Not Less" data-ko="어르신은 단백질을 더 많이 필요로 합니다">어르신은 단백질을 더 많이 필요로 합니다</span></h3>
+        <p><span data-en="As we age, muscle breaks down faster. Eating enough protein helps maintain strength and prevent falls. Aim for at least 1.0–1.2 g of protein per kg of body weight daily." data-ko="나이가 들면 근육이 더 빨리 분해됩니다. 충분한 단백질 섭취는 근력을 유지하고 낙상을 예방하는 데 도움이 됩니다. 하루 체중 1kg당 1.0~1.2g의 단백질 섭취를 목표로 하세요.">나이가 들면 근육이 더 빨리 분해됩니다. 충분한 단백질 섭취는 근력을 유지하고 낙상을 예방하는 데 도움이 됩니다. 하루 체중 1kg당 1.0~1.2g의 단백질 섭취를 목표로 하세요.</span></p>
+        <ul>
+          <li><span data-en="🥚 Eggs · 🐟 Fish · 🍗 Chicken · 🥩 Lean beef" data-ko="🥚 달걀 · 🐟 생선 · 🍗 닭고기 · 🥩 저지방 쇠고기">🥚 달걀 · 🐟 생선 · 🍗 닭고기 · 🥩 저지방 쇠고기</span></li>
+          <li><span data-en="🫘 Tofu · 🫘 Edamame · 🥛 Greek yogurt" data-ko="🫘 두부 · 🫘 에다마메 · 🥛 그리스 요거트">🫘 두부 · 🫘 에다마메 · 🥛 그리스 요거트</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         CATEGORY 5: BONE HEALTH / 뼈 건강
+    ══════════════════════════════════════ -->
+    <p class="tips-category-label">
+      <span data-en="BONE HEALTH" data-ko="뼈 건강">뼈 건강</span>
+    </p>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">🦴</div>
+      <div class="tip-text">
+        <h3><span data-en="Calcium &amp; Vitamin D for Strong Bones" data-ko="뼈를 튼튼하게 하는 칼슘과 비타민 D">뼈를 튼튼하게 하는 칼슘과 비타민 D</span></h3>
+        <p><span data-en="Adults over 70 need 1,200 mg of calcium and 800 IU of Vitamin D daily to prevent osteoporosis. Vitamin D helps the body absorb calcium — get 15 minutes of sunlight daily if possible." data-ko="70세 이상은 골다공증 예방을 위해 하루 칼슘 1,200mg과 비타민 D 800IU가 필요합니다. 비타민 D는 칼슘 흡수를 돕습니다 — 가능하면 매일 15분 햇볕을 쬐세요.">70세 이상은 골다공증 예방을 위해 하루 칼슘 1,200mg과 비타민 D 800IU가 필요합니다. 비타민 D는 칼슘 흡수를 돕습니다 — 가능하면 매일 15분 햇볕을 쬐세요.</span></p>
+        <ul>
+          <li><span data-en="Calcium: milk, tofu, dried seaweed, sardines, kale" data-ko="칼슘: 우유, 두부, 미역, 정어리, 케일">칼슘: 우유, 두부, 미역, 정어리, 케일</span></li>
+          <li><span data-en="Vitamin D: salmon, mackerel, eggs, fortified milk" data-ko="비타민 D: 연어, 고등어, 달걀, 강화 우유">비타민 D: 연어, 고등어, 달걀, 강화 우유</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         CATEGORY 6: PORTION & DIGESTION
+    ══════════════════════════════════════ -->
+    <p class="tips-category-label">
+      <span data-en="PORTION SIZE &amp; DIGESTION" data-ko="식사량 &amp; 소화">식사량 &amp; 소화</span>
+    </p>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">🍽️</div>
+      <div class="tip-text">
+        <h3><span data-en="Smaller, More Frequent Meals Work Better" data-ko="적게 자주 먹는 것이 더 좋습니다">적게 자주 먹는 것이 더 좋습니다</span></h3>
+        <p><span data-en="Seniors often have smaller appetites. Instead of 3 large meals, try 4–5 smaller meals throughout the day. This helps with digestion, blood sugar stability, and nutrient absorption." data-ko="어르신은 식욕이 작을 수 있습니다. 큰 식사 3번 대신, 하루 4~5번 적은 양을 드세요. 소화, 혈당 안정, 영양 흡수에 도움이 됩니다.">어르신은 식욕이 작을 수 있습니다. 큰 식사 3번 대신, 하루 4~5번 적은 양을 드세요. 소화, 혈당 안정, 영양 흡수에 도움이 됩니다.</span></p>
+      </div>
+    </div>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">🌾</div>
+      <div class="tip-text">
+        <h3><span data-en="Fiber for Digestion &amp; Blood Sugar" data-ko="소화와 혈당을 위한 식이섬유">소화와 혈당을 위한 식이섬유</span></h3>
+        <p><span data-en="Aim for 25–30 g of fiber daily. Fiber slows sugar absorption, prevents constipation, and supports heart health. Korean diets naturally include many high-fiber foods." data-ko="하루 25~30g의 식이섬유를 목표로 하세요. 식이섬유는 혈당 흡수를 늦추고 변비를 예방하며 심장 건강을 돕습니다. 한식에는 식이섬유가 풍부한 음식이 많습니다.">하루 25~30g의 식이섬유를 목표로 하세요. 식이섬유는 혈당 흡수를 늦추고 변비를 예방하며 심장 건강을 돕습니다. 한식에는 식이섬유가 풍부한 음식이 많습니다.</span></p>
+        <ul>
+          <li><span data-en="Brown rice (현미) instead of white rice" data-ko="흰 쌀 대신 현미">흰 쌀 대신 현미</span></li>
+          <li><span data-en="More vegetables in jjigae and soups" data-ko="찌개와 국에 채소 더 넣기">찌개와 국에 채소 더 넣기</span></li>
+          <li><span data-en="Beans (beans, lentils, edamame)" data-ko="콩류 (검은콩, 렌틸콩, 에다마메)">콩류 (검은콩, 렌틸콩, 에다마메)</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         CATEGORY 7: GENERAL SENIOR TIPS
+    ══════════════════════════════════════ -->
+    <p class="tips-category-label">
+      <span data-en="GENERAL SENIOR HEALTH TIPS" data-ko="일반 어르신 건강 팁">일반 어르신 건강 팁</span>
+    </p>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">🚶</div>
+      <div class="tip-text">
+        <h3><span data-en="A 30-Minute Walk After Meals Does Wonders" data-ko="식후 30분 걷기의 놀라운 효과">식후 30분 걷기의 놀라운 효과</span></h3>
+        <p><span data-en="A gentle 30-minute walk after lunch or dinner helps lower blood sugar, improve digestion, and strengthen bones and muscles. It doesn't need to be fast — a comfortable pace is perfect." data-ko="점심 또는 저녁 식사 후 30분 걷기는 혈당을 낮추고 소화를 돕고 뼈와 근육을 강화하는 데 도움을 줍니다. 빠르게 걸을 필요 없어요 — 편한 속도로 충분합니다.">점심 또는 저녁 식사 후 30분 걷기는 혈당을 낮추고 소화를 돕고 뼈와 근육을 강화하는 데 도움을 줍니다. 빠르게 걸을 필요 없어요 — 편한 속도로 충분합니다.</span></p>
+      </div>
+    </div>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">🫙</div>
+      <div class="tip-text">
+        <h3><span data-en="Fermented Foods Are Great for Gut Health" data-ko="발효 식품은 장 건강에 좋습니다">발효 식품은 장 건강에 좋습니다</span></h3>
+        <p><span data-en="Traditional Korean fermented foods like kimchi, doenjang, and ganjang contain natural probiotics that support digestion and the immune system. Include a small serving with most meals." data-ko="김치, 된장, 간장 같은 전통 발효 식품에는 소화와 면역 체계를 돕는 천연 프로바이오틱스가 들어 있습니다. 대부분의 식사에 조금씩 포함하세요.">김치, 된장, 간장 같은 전통 발효 식품에는 소화와 면역 체계를 돕는 천연 프로바이오틱스가 들어 있습니다. 대부분의 식사에 조금씩 포함하세요.</span></p>
+      </div>
+    </div>
+
+    <div class="tip-card" role="article">
+      <div class="tip-icon" aria-hidden="true">💊</div>
+      <div class="tip-text">
+        <h3><span data-en="Talk to Your Doctor Before Changing Your Diet" data-ko="식단을 바꾸기 전에 의사와 상담하세요">식단을 바꾸기 전에 의사와 상담하세요</span></h3>
+        <p><span data-en="If you take medications for blood pressure, diabetes, or kidney disease, some foods (like grapefruit, high-potassium foods, or certain herbs) can interact with your medication. Always check with your doctor first." data-ko="혈압, 당뇨, 신장 질환 약을 복용 중이라면 일부 음식(자몽, 칼륨이 많은 음식, 특정 한약재)이 약과 상호작용할 수 있습니다. 식단을 바꾸기 전에 항상 의사와 상담하세요.">혈압, 당뇨, 신장 질환 약을 복용 중이라면 일부 음식(자몽, 칼륨이 많은 음식, 특정 한약재)이 약과 상호작용할 수 있습니다. 식단을 바꾸기 전에 항상 의사와 상담하세요.</span></p>
+      </div>
+    </div>
+
+    <div class="health-note" style="margin-top:28px;">
+      ℹ️ <span data-en="These tips are general educational information. They are not a substitute for professional medical advice. Always consult your doctor or registered dietitian for personalized guidance." data-ko="이 정보는 일반적인 교육 목적의 내용입니다. 전문 의료 조언을 대체하지 않습니다. 개인 맞춤 안내를 위해 항상 의사 또는 영양사와 상담하세요.">이 정보는 일반적인 교육 목적의 내용입니다. 전문 의료 조언을 대체하지 않습니다. 개인 맞춤 안내를 위해 항상 의사 또는 영양사와 상담하세요.</span>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p><span data-en="빛나는 음식 · Radiant Food" data-ko="빛나는 음식 · Radiant Food">빛나는 음식 · Radiant Food</span></p>
+    <p class="tiny"><span data-en="Built for Korean American elders · No login required" data-ko="한국계 미국인 어르신을 위해 제작 · 로그인 불필요">한국계 미국인 어르신을 위해 제작 · 로그인 불필요</span></p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
