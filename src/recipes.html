@@ -450,8 +450,8 @@
   <script src="js/recipes-data.js"></script>
   <script src="js/app.js"></script>
   <script>
-    // ── Live USDA nutrition data ────────────────────────────
-    const API_BASE = location.hostname === 'localhost' ? 'http://localhost:3001' : '';
+    // ── Live USDA nutrition data (direct browser call) ─────
+    const USDA_KEY = 'foVsgHrthzBBqqGOoAg2sXbhFCXzVD6ctwZo5xLV';
 
     async function loadNutrition() {
       const cards = document.querySelectorAll('.recipe-card[data-query]');
@@ -459,7 +459,7 @@
       for (const card of cards) {
         try {
           const res = await fetch(
-            `${API_BASE}/api/nutrition?q=${encodeURIComponent(card.dataset.query)}`
+            `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(card.dataset.query)}&api_key=${USDA_KEY}&pageSize=5&dataType=Survey%20%28FNDDS%29,SR%20Legacy`
           );
           if (!res.ok) continue;
           const data = await res.json();
