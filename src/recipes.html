@@ -451,13 +451,15 @@
   <script src="js/app.js"></script>
   <script>
     // ── Live USDA nutrition data ────────────────────────────
+    const API_BASE = location.hostname === 'localhost' ? 'http://localhost:3001' : '';
+
     async function loadNutrition() {
       const cards = document.querySelectorAll('.recipe-card[data-query]');
 
       for (const card of cards) {
         try {
           const res = await fetch(
-            `http://localhost:3001/api/nutrition?q=${encodeURIComponent(card.dataset.query)}`
+            `${API_BASE}/api/nutrition?q=${encodeURIComponent(card.dataset.query)}`
           );
           if (!res.ok) continue;
           const data = await res.json();
