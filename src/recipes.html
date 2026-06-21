@@ -466,13 +466,19 @@
           if (!data.foods || !data.foods.length) continue;
 
           const f = data.foods[0];
+          const nutrients = f.foodNutrients || [];
+          const get = name => nutrients.find(n => n.nutrientName === name)?.value;
 
-          // Build pill definitions from whatever the API returned
+          const cal     = get('Energy');
+          const protein = get('Protein');
+          const sodium  = get('Sodium, Na');
+          const fiber   = get('Fiber, total dietary');
+
           const pills = [
-            f.calories != null && { en: 'Cal',     ko: '칼로리',   val: `${Math.round(f.calories)} kcal` },
-            f.protein  != null && { en: 'Protein', ko: '단백질',   val: `${f.protein.toFixed(1)} g` },
-            f.sodium   != null && { en: 'Sodium',  ko: '나트륨',   val: `${Math.round(f.sodium)} mg` },
-            f.fiber    != null && { en: 'Fiber',   ko: '식이섬유', val: `${f.fiber.toFixed(1)} g` },
+            cal     != null && { en: 'Cal',     ko: '칼로리',   val: `${Math.round(cal)} kcal` },
+            protein != null && { en: 'Protein', ko: '단백질',   val: `${protein.toFixed(1)} g` },
+            sodium  != null && { en: 'Sodium',  ko: '나트륨',   val: `${Math.round(sodium)} mg` },
+            fiber   != null && { en: 'Fiber',   ko: '식이섬유', val: `${fiber.toFixed(1)} g` },
           ].filter(Boolean);
 
           if (!pills.length) continue;
