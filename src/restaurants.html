@@ -259,9 +259,9 @@
       <p>
         <span data-en="Tap below to open Google Maps and find Korean restaurants near your current location." data-ko="아래 버튼을 눌러 구글 지도에서 현재 위치 근처 한식당을 찾아보세요.">아래 버튼을 눌러 구글 지도에서 현재 위치 근처 한식당을 찾아보세요.</span>
       </p>
-      <button class="maps-btn" onclick="openGoogleMaps()" aria-label="Open Google Maps to find Korean restaurants">
+      <a href="https://www.google.com/maps/search/Korean+restaurants+near+me/" target="_blank" rel="noopener" class="maps-btn" aria-label="Open Google Maps to find Korean restaurants">
         <span data-en="🗺️ Find Korean Restaurants on Google Maps" data-ko="🗺️ 구글 지도에서 한식당 찾기">🗺️ 구글 지도에서 한식당 찾기</span>
-      </button>
+      </a>
     </div>
 
     <div class="divider"></div>
@@ -669,31 +669,6 @@
 
   <script src="js/app.js"></script>
   <script>
-    // ── Google Maps search ──────────────────────────────────
-    function openGoogleMaps() {
-      const baseQuery = 'Korean+restaurant';
-
-      if (!navigator.geolocation) {
-        window.open(`https://www.google.com/maps/search/${baseQuery}/`, '_blank');
-        return;
-      }
-
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          const { latitude: lat, longitude: lng } = pos.coords;
-          window.open(
-            `https://www.google.com/maps/search/${baseQuery}/@${lat},${lng},14z`,
-            '_blank'
-          );
-        },
-        () => {
-          // Permission denied or unavailable — open generic search
-          window.open(`https://www.google.com/maps/search/${baseQuery}/`, '_blank');
-        },
-        { timeout: 5000 }
-      );
-    }
-
     // ── City picker ─────────────────────────────────────────
     function showCity(city, clickedBtn) {
       document.querySelectorAll('.city-section').forEach(el => el.style.display = 'none');
